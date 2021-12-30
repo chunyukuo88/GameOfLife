@@ -51,4 +51,22 @@ describe('evaluateAllCells()', ()=>{
 			expect(result).toEqual(expected);
 		});
 	});
+	describe('WHEN: The 2 living cells have no neighbors', ()=>{
+		it('THEN: all cells die.', ()=>{
+			const grid = [
+				[ -1, -1,  1 ],
+				[ -1, -1, -1 ],
+				[  1, -1, -1 ],
+			];
+			const expected = [
+				[ -1, -1, -1 ],
+				[ -1, -1, -1 ],
+				[ -1, -1, -1 ],
+			];
+
+			const result = evaluateAllCells(grid)
+
+			expect(result).toEqual(expected);
+		});
+	});
 });
