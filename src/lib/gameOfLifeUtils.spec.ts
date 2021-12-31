@@ -33,7 +33,7 @@ describe('gameOfLifeUtils.ts', ()=>{
 					expect(grid).toEqual(expectedResult);
 				});
 			});
-		});grid
+		});
 	});
 	describe('evaluateAllCells()', ()=>{
 		describe('WHEN: The center cell has no neighbors', ()=>{
@@ -103,7 +103,7 @@ describe('gameOfLifeUtils.ts', ()=>{
 			});
 		});
 		describe('WHEN: A three-cell column', ()=>{
-			it('THEN: it becomes a three-cell row.', ()=>{
+			it('THEN: it becomes a three-cell row (propeller).', ()=>{
 				grid = [ // Note the center column
 					[ -1, -1, -1, -1, -1 ],
 					[ -1, -1,  1, -1, -1 ],

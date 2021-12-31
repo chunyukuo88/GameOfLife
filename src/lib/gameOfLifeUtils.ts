@@ -65,64 +65,42 @@ const evaluateTopRow = (grid: Grid, row, i): number[][] => {
 	}
 	return newGrid;
 };
-
 const updateNewGrid = (grid, newGrid, neighbors, i, j) => {
-	if (neighbors > 3 || neighbors < 2) newGrid[i][j] = -1;
-	else if (neighbors === 3) newGrid[i][j] = 1;
-	else if (grid[i][j] === 1 && neighbors === 2) newGrid[i][j] = 1;
+	if (lethalConditions(neighbors))
+		cellDies(newGrid, i, j);
+	if (healthyConditions(neighbors, grid, i, j))
+		cellSpawns(newGrid, i, j);
 	return newGrid;
 };
 
-const getNeighborsForTopMiddleVals = (grid: Grid, i, j): number[] => {
-	return [
-		grid[i][j-1],
-		grid[i][j+1],
-		grid[i+1][j-1],
-		grid[i+1][j],
-		grid[i+1][j+1],
-	];
-}
+const lethalConditions = (neighbors) => neighbors > 3 || neighbors < 2;
+const healthyConditions = (neighbors, grid, i, j) => neighbors === 3 || (grid[i][j] === 1 && neighbors === 2);
+const cellDies = (grid, i, j) => grid[i][j] = -1;
+const cellSpawns = (grid, i, j) => grid[i][j] = 1;
+const getNeighborsForTopMiddleVals = (grid: Grid, i, j): number[] => [grid[i][j-1], grid[i][j+1], grid[i+1][j-1], grid[i+1][j], grid[i+1][j+1]];
 const getNeighborsForUpperLeftCorner = (grid: Grid, i, j) => [grid[i][j+1], grid[i+1][j], grid[i+1][j+1]];
 const getNeighborsForUpperRightCorner = (grid: Grid, i, j) => [grid[i][j-1], grid[i+1][j-1], grid[i+1][j]];
-
 const evaluateBottomRow = (grid: Grid, row, i): number[][] => {
 	let newGrid = [...grid];
 	for (let j = 0; j < row.length; j++) {
 		let neighbors = 0;
-		if (j === 0) {
-			const [northNeighbor, neNeighbor, eastNeighbor] = getNeighborsForLowerLeftCorner(grid, i, j);
-			if (northNeighbor === 1 ) neighbors++;
-			if (neNeighbor === 1 ) neighbors++;
-			if (eastNeighbor === 1 ) neighbors++;
-		}
-		if (j > 0 && j < row.length - 1) {
-			const [nwNeighbor, northNeighbor, westNeighbor] = getNeighborsForLowerRightCorner(grid, i, j);
-			if (nwNeighbor === 1 ) neighbors++;
-			if (northNeighbor === 1 ) neighbors++;
-			if (westNeighbor === 1 ) neighbors++;
-		}
-		if (j === row.length - 1) {
-			const [nwNeighbor, northNeighbor, neNeighbor, westNeighbor, eastNeighbor] = getNeighborsForBottomMiddleVals(grid, i, j);
-			if (nwNeighbor === 1 ) neighbors++;
-			if (northNeighbor === 1 ) neighbors++;
-			if (neNeighbor === 1 ) neighbors++;
-			if (westNeighbor === 1 ) neighbors++;
-			if (eastNeighbor === 1 ) neighbors++;
-		}
+		if (j === 0)
+			neighbors = addEachNeighbor(neighbors, getNeighborsForLowerLeftCorner(grid, i, j));
+		if (j > 0 && j < row.length - 1)
+			neighbors = addEachNeighbor(neighbors, getNeighborsForBottomMiddleVals(grid, i, j));
+		if (j === row.length - 1)
+			neighbors = addEachNeighbor(neighbors, getNeighborsForLowerRightCorner(grid, i, j));
 		newGrid = updateNewGrid(grid, newGrid, neighbors, i, j);
 	}
 	return newGrid;
 };
-
-const getNeighborsForBottomMiddleVals = (grid: Grid, i, j) => {
-	return [
-		grid[i-1][j-1],
-		grid[i-1][j],
-		grid[i-1][j+1],
-		grid[i][j-1],
-		grid[i][j+1],
-	];
-}
+const getNeighborsForBottomMiddleVals = (grid: Grid, i, j) => [
+	grid[i-1][j-1],
+	grid[i-1][j],
+	grid[i-1][j+1],
+	grid[i][j-1],
+	grid[i][j+1],
+];
 const getNeighborsForLowerLeftCorner = (grid: Grid, i, j) => [grid[i-1][j], grid[i-1][j+1], grid[i][j+1]];
 const getNeighborsForLowerRightCorner = (grid: Grid, i, j) => [grid[i-1][j-1], grid[i-1][j], grid[i][j-1]];
 
@@ -135,49 +113,34 @@ const evaluateInteriorRow = (grid: Grid, row, i):number[][] => {
 	return newGrid;
 };
 
+//For cells in interior rows, i.e. not the top or bottom rows.
 const getTotalNeighbors = (grid: Grid, i, j):number => {
 	let totalNeighbors = 0;
-	if (j === 0) {
-		const northNeighbor = grid[i - 1][j];
-		const neNeighbor = grid[i - 1][j + 1];
-		const eastNeighbor = grid[i][j + 1 ];
-		const seNeighbor = grid[i + 1][j + 1];
-		const southNeighbor = grid[i + 1][j];
-		if (northNeighbor === 1) totalNeighbors++;
-		if (neNeighbor    === 1) totalNeighbors++;
-		if (eastNeighbor  === 1) totalNeighbors++;
-		if (seNeighbor    === 1) totalNeighbors++;
-		if (southNeighbor === 1) totalNeighbors++;
-	}
-	if (j > 0 && j < grid.length - 1) {
-		const eastNeighbor = grid[i][j + 1];
-		const seNeighbor = grid[i + 1][j + 1];
-		const southNeighbor = grid[i + 1][j];
-		const swNeighbor = grid[i + 1][j - 1];
-		const westNeighbor = grid[i][j - 1];
-		const nwNeighbor = grid[i - 1][j - 1];
-		const northNeighbor = grid[i - 1][j];
-		const neNeighbor = grid[i - 1][j + 1];
-		if (eastNeighbor  === 1) totalNeighbors++;
-		if (westNeighbor  === 1) totalNeighbors++;
-		if (nwNeighbor    === 1) totalNeighbors++;
-		if (northNeighbor === 1) totalNeighbors++;
-		if (neNeighbor    === 1) totalNeighbors++;
-		if (swNeighbor    === 1) totalNeighbors++;
-		if (southNeighbor === 1) totalNeighbors++;
-		if (seNeighbor    === 1) totalNeighbors++;
-	};
-	if (j === grid.length - 1) {
-		const westNeighbor = grid[i][j - 1 ];
-		const nwNeighbor = grid[i - 1][j - 1];
-		const northNeighbor = grid[i - 1][j];
-		const swNeighbor = grid[i + 1][j - 1];
-		const southNeighbor = grid[i + 1][j];
-		if (westNeighbor  === 1) totalNeighbors++;
-		if (nwNeighbor    === 1) totalNeighbors++;
-		if (northNeighbor === 1) totalNeighbors++;
-		if (swNeighbor    === 1) totalNeighbors++;
-		if (southNeighbor === 1) totalNeighbors++;
-	}
+	if (j === 0)
+		totalNeighbors = addEachNeighbor(totalNeighbors, getLeftEdgeNeighbors(grid, i, j));
+	if (j > 0 && j < grid.length - 1)
+		totalNeighbors = addEachNeighbor(totalNeighbors, getCentralNeighbors(grid, i, j));
+	if (j === grid.length - 1)
+		totalNeighbors = addEachNeighbor(totalNeighbors, getRightEdgeNeighbors(grid, i, j));
 	return totalNeighbors;
 };
+
+const addEachNeighbor = (totalNeighbors: number, arrayOfNeighborValues: number[]) => {
+	arrayOfNeighborValues.forEach(value => (value === 1) && totalNeighbors++);
+	return totalNeighbors;
+};
+
+//Gets the neighbors of a cell that is not along the top or bottom rows but is along the right edge.
+const getRightEdgeNeighbors = (grid, i, j): number[] => [
+	grid[i - 1][j], grid[i - 1][j - 1], grid[i][j - 1], grid[i + 1][j - 1], grid[i + 1][j]
+];
+
+//Gets the neighbors of a cell that is not along the top or bottom rows but is along the left edge.
+const getLeftEdgeNeighbors = (grid, i, j): number[] => [
+	grid[i - 1][j], grid[i - 1][j + 1], grid[i][j + 1 ], grid[i + 1][j + 1], grid[i + 1][j]
+];
+
+//Gets the neighbors of a cell that is not an edge cell.
+const getCentralNeighbors = (grid, i, j) => [
+	grid[i][j + 1], grid[i + 1][j + 1], grid[i + 1][j], grid[i + 1][j - 1], grid[i][j - 1], grid[i - 1][j - 1], grid[i - 1][j], grid[i - 1][j + 1],
+];
