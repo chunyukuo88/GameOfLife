@@ -1,11 +1,26 @@
 type Grid = number[][];
 
+const startingGrid = [
+	[ -1, -1, -1, -1, -1, -1, -1 ],
+	[ -1, -1, -1, -1, -1, -1, -1 ],
+	[ -1, -1, -1, -1, -1, -1, -1 ],
+	[ -1, -1, -1, -1, -1, -1, -1 ],
+	[ -1, -1, -1, -1, -1, -1, -1 ],
+	[ -1, -1, -1, -1, -1, -1, -1 ],
+	[ -1, -1, -1, -1, -1, -1, -1 ],
+];
+
 export const cellClickHandler = (gridContext, row: number, value: number): void => {
 	const { grid, updateGrid } = gridContext;
 	const newGrid = [...grid];
 	newGrid[row][value] = -1 * grid[row][value];
 	updateGrid(newGrid);
 };
+
+export const resetGrid = (gridContext) => {
+	const { updateGrid } = gridContext;
+	updateGrid(startingGrid);
+}
 
 export const evaluateAllCells = (gridContext, grid: Grid): void => {
 	const { updateGrid } = gridContext;
@@ -23,6 +38,7 @@ export const evaluateAllCells = (gridContext, grid: Grid): void => {
 };
 
 const evaluateTopRow = (grid: Grid, row, i): number[][] => {
+	let newGrid = [...grid];
 	for (let j = 0; j < row.length; j++) {
 		let neighbors = 0;
 		if (j === 0) {
@@ -45,9 +61,16 @@ const evaluateTopRow = (grid: Grid, row, i): number[][] => {
 			if (swNeighbor === 1 ) neighbors++;
 			if (southNeighbor === 1 ) neighbors++;
 		}
-		if (neighbors > 3 || neighbors < 2) grid[i][j] = -1;
+		newGrid = updateNewGrid(grid, newGrid, neighbors, i, j);
 	}
-	return grid;
+	return newGrid;
+};
+
+const updateNewGrid = (grid, newGrid, neighbors, i, j) => {
+	if (neighbors > 3 || neighbors < 2) newGrid[i][j] = -1;
+	else if (neighbors === 3) newGrid[i][j] = 1;
+	else if (grid[i][j] === 1 && neighbors === 2) newGrid[i][j] = 1;
+	return newGrid;
 };
 
 const getNeighborsForTopMiddleVals = (grid: Grid, i, j): number[] => {
@@ -61,8 +84,9 @@ const getNeighborsForTopMiddleVals = (grid: Grid, i, j): number[] => {
 }
 const getNeighborsForUpperLeftCorner = (grid: Grid, i, j) => [grid[i][j+1], grid[i+1][j], grid[i+1][j+1]];
 const getNeighborsForUpperRightCorner = (grid: Grid, i, j) => [grid[i][j-1], grid[i+1][j-1], grid[i+1][j]];
+
 const evaluateBottomRow = (grid: Grid, row, i): number[][] => {
-	const newGrid = [...grid];
+	let newGrid = [...grid];
 	for (let j = 0; j < row.length; j++) {
 		let neighbors = 0;
 		if (j === 0) {
@@ -71,13 +95,13 @@ const evaluateBottomRow = (grid: Grid, row, i): number[][] => {
 			if (neNeighbor === 1 ) neighbors++;
 			if (eastNeighbor === 1 ) neighbors++;
 		}
-		else if (j > 0 && j < row.length - 1) {
+		if (j > 0 && j < row.length - 1) {
 			const [nwNeighbor, northNeighbor, westNeighbor] = getNeighborsForLowerRightCorner(grid, i, j);
 			if (nwNeighbor === 1 ) neighbors++;
 			if (northNeighbor === 1 ) neighbors++;
 			if (westNeighbor === 1 ) neighbors++;
 		}
-		else {
+		if (j === row.length - 1) {
 			const [nwNeighbor, northNeighbor, neNeighbor, westNeighbor, eastNeighbor] = getNeighborsForBottomMiddleVals(grid, i, j);
 			if (nwNeighbor === 1 ) neighbors++;
 			if (northNeighbor === 1 ) neighbors++;
@@ -85,7 +109,7 @@ const evaluateBottomRow = (grid: Grid, row, i): number[][] => {
 			if (westNeighbor === 1 ) neighbors++;
 			if (eastNeighbor === 1 ) neighbors++;
 		}
-		if (neighbors > 3 || neighbors < 2) newGrid[i][j] = -1;
+		newGrid = updateNewGrid(grid, newGrid, neighbors, i, j);
 	}
 	return newGrid;
 };
@@ -103,12 +127,10 @@ const getNeighborsForLowerLeftCorner = (grid: Grid, i, j) => [grid[i-1][j], grid
 const getNeighborsForLowerRightCorner = (grid: Grid, i, j) => [grid[i-1][j-1], grid[i-1][j], grid[i][j-1]];
 
 const evaluateInteriorRow = (grid: Grid, row, i):number[][] => {
-	const newGrid = [...grid];
+	let newGrid = [...grid];
 	for (let j = 0; j < row.length - 1; j++){
-		const totalNeighbors = getTotalNeighbors(grid, i, j);
-		if (totalNeighbors > 3 || totalNeighbors < 2) {
-			newGrid[i][j] = -1;
-		}
+		const neighbors = getTotalNeighbors(grid, i, j);
+		newGrid = updateNewGrid(grid, newGrid, neighbors, i, j);
 	}
 	return newGrid;
 };
@@ -116,43 +138,45 @@ const evaluateInteriorRow = (grid: Grid, row, i):number[][] => {
 const getTotalNeighbors = (grid: Grid, i, j):number => {
 	let totalNeighbors = 0;
 	if (j === 0) {
-		const eastNeighbor = grid[i][j + 1 ];
-		const neNeighbor = grid[i - 1][j + 1];
 		const northNeighbor = grid[i - 1][j];
+		const neNeighbor = grid[i - 1][j + 1];
+		const eastNeighbor = grid[i][j + 1 ];
 		const seNeighbor = grid[i + 1][j + 1];
 		const southNeighbor = grid[i + 1][j];
-		if (eastNeighbor  === 1) totalNeighbors++;
-		if (neNeighbor    === 1) totalNeighbors++;
 		if (northNeighbor === 1) totalNeighbors++;
+		if (neNeighbor    === 1) totalNeighbors++;
+		if (eastNeighbor  === 1) totalNeighbors++;
 		if (seNeighbor    === 1) totalNeighbors++;
 		if (southNeighbor === 1) totalNeighbors++;
-	} else if (i > 0 && i < grid.length - 1) {
-		const eastNeighbor = grid[i][j + 1 ];
-		const westNeighbor = grid[i][j - 1 ];
+	}
+	if (j > 0 && j < grid.length - 1) {
+		const eastNeighbor = grid[i][j + 1];
+		const seNeighbor = grid[i + 1][j + 1];
+		const southNeighbor = grid[i + 1][j];
+		const swNeighbor = grid[i + 1][j - 1];
+		const westNeighbor = grid[i][j - 1];
 		const nwNeighbor = grid[i - 1][j - 1];
 		const northNeighbor = grid[i - 1][j];
 		const neNeighbor = grid[i - 1][j + 1];
-		const swNeighbor = grid[i + 1][j - 1];
-		const southNeighbor = grid[i + 1][j];
-		const seNeighbor = grid[i + 1][j + 1];
-		if (eastNeighbor === 1) totalNeighbors++;
-		if (westNeighbor === 1) totalNeighbors++;
-		if (nwNeighbor === 1) totalNeighbors++;
+		if (eastNeighbor  === 1) totalNeighbors++;
+		if (westNeighbor  === 1) totalNeighbors++;
+		if (nwNeighbor    === 1) totalNeighbors++;
 		if (northNeighbor === 1) totalNeighbors++;
-		if (neNeighbor === 1) totalNeighbors++;
-		if (swNeighbor === 1) totalNeighbors++;
+		if (neNeighbor    === 1) totalNeighbors++;
+		if (swNeighbor    === 1) totalNeighbors++;
 		if (southNeighbor === 1) totalNeighbors++;
-		if (seNeighbor === 1) totalNeighbors++;
-	} else {
+		if (seNeighbor    === 1) totalNeighbors++;
+	};
+	if (j === grid.length - 1) {
 		const westNeighbor = grid[i][j - 1 ];
 		const nwNeighbor = grid[i - 1][j - 1];
 		const northNeighbor = grid[i - 1][j];
 		const swNeighbor = grid[i + 1][j - 1];
 		const southNeighbor = grid[i + 1][j];
-		if (westNeighbor === 1) totalNeighbors++;
-		if (nwNeighbor === 1) totalNeighbors++;
+		if (westNeighbor  === 1) totalNeighbors++;
+		if (nwNeighbor    === 1) totalNeighbors++;
 		if (northNeighbor === 1) totalNeighbors++;
-		if (swNeighbor === 1) totalNeighbors++;
+		if (swNeighbor    === 1) totalNeighbors++;
 		if (southNeighbor === 1) totalNeighbors++;
 	}
 	return totalNeighbors;
