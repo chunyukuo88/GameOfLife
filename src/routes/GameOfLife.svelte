@@ -1,8 +1,8 @@
 <script lang='ts'>
-	import { cellClickHandler } from '$lib/gameOfLifeUtils';
+	import { cellClickHandler, evaluateAllCells } from '$lib/gameOfLifeUtils';
 	import { setContext } from 'svelte';
 
-	let grid = [
+	let exposedGrid = [
 		[ -1, -1, -1, -1, -1 ],
 		[ -1, -1, -1, -1, -1 ],
 		[ -1, -1, -1, -1, -1 ],
@@ -10,14 +10,15 @@
 		[ -1, -1, -1, -1, -1 ],
 	];
 	const gridContext = {
-		grid,
-		updateGrid: (newGrid) => grid = newGrid
+		grid: exposedGrid,
+		updateGrid: (newGrid) => exposedGrid = newGrid
 	};
 	setContext('gridContext', gridContext);
+	const tickHandler = () => evaluateAllCells(gridContext, exposedGrid);
 </script>
 
 <table>
-	{#each grid as row, i}
+	{#each exposedGrid as row, i}
 		<tr>
 			{#each row as val, j}
 				<td on:click={()=>cellClickHandler(gridContext, i, j)}>
@@ -27,6 +28,9 @@
 		</tr>
 	{/each}
 </table>
+<button on:click={tickHandler}>
+	<h1>Tick</h1>
+</button>
 
 <style>
 	td {
