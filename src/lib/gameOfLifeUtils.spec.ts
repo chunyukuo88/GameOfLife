@@ -1,4 +1,4 @@
-import { cellClickHandler, evaluateAllCells, produceSquareGrid } from './gameOfLifeUtils';
+import { cellClickHandler, evaluateAllCells, produceSquareGrid, resetGrid, startingGrid } from './gameOfLifeUtils';
 
 /** RULES (from https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 At each step in time, the following transitions occur:
@@ -11,6 +11,19 @@ Any dead cell with exactly three live neighbours becomes a live cell, as if by r
 let grid: number[][];
 
 describe('gameOfLifeUtils.ts', ()=>{
+	describe('resetGrid()', ()=>{
+		describe('GIVEN: a grid context object containing a method', ()=>{
+			it('THEN: it executes the method with startingGrid as a parameter.', ()=>{
+				const gridContext = {
+					updateGrid: jest.fn()
+				};
+
+				resetGrid(gridContext);
+
+				expect(gridContext.updateGrid).toBeCalledWith(startingGrid);
+			});
+		});
+	});
 	describe('produceSquareGrid()', ()=>{
 		describe('GIVEN: An integer representing the desired side length', ()=>{
 			it('THEN: It produces a 2D array of -1\'s representing a square.', ()=>{
@@ -53,8 +66,8 @@ describe('gameOfLifeUtils.ts', ()=>{
 	});
 	describe('evaluateAllCells()', ()=>{
 		describe('SCENARIOS: These are classic Game Of Life shapes', ()=>{
-			it('Propeller, near the lower-right corner.', ()=>{
-				grid = [
+			it('Propeller', ()=>{
+				grid = [ //propeller is near the lower-right corner
 					[ -1, -1, -1, -1 ],
 					[ -1, -1,  1, -1 ],
 					[ -1, -1,  1, -1 ],
@@ -68,6 +81,28 @@ describe('gameOfLifeUtils.ts', ()=>{
 					[ -1, -1, -1, -1 ],
 					[ -1, -1, -1, -1 ],
 					[ -1,  1,  1,  1 ],
+					[ -1, -1, -1, -1 ],
+				];
+
+				evaluateAllCells(gridContext, grid)
+
+				expect(grid).toEqual(expected);
+			});
+			it('3-cell L -> 4-cell square', ()=>{
+				grid = [ // middle-right edge
+					[ -1, -1, -1, -1 ],
+					[ -1, -1,  1, -1 ],
+					[ -1, -1,  1,  1 ],
+					[ -1, -1, -1, -1 ],
+				];
+				const gridContext = {
+					grid,
+					updateGrid: (newGrid) => grid = newGrid
+				};
+				const expected = [ // Note the center row
+					[ -1, -1, -1, -1 ],
+					[ -1, -1,  1,  1 ],
+					[ -1, -1,  1,  1 ],
 					[ -1, -1, -1, -1 ],
 				];
 

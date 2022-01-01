@@ -1,6 +1,7 @@
 type Grid = number[][];
 
-const startingGrid = [
+//Exported for unit test only.
+export const startingGrid = [
 	[ -1, -1, -1, -1, -1, -1, -1 ],
 	[ -1, -1, -1, -1, -1, -1, -1 ],
 	[ -1, -1, -1, -1, -1, -1, -1 ],
@@ -39,16 +40,16 @@ export const evaluateAllCells = (gridContext, grid: Grid): void => {
 	let newGrid = JSON.parse(JSON.stringify(grid));
 	for (let i = 0; i < grid.length; i++){
 		if (i === 0)
-			newGrid = evaluateTopRow(newGrid, grid, grid[i], i);
+			newGrid = updateTopRow(newGrid, grid, grid[i], i);
 		else if (i > 0 && i < grid.length - 1)
-			newGrid = evaluateInteriorRow(newGrid, grid, grid[i], i);
+			newGrid = updateInteriorRow(newGrid, grid, grid[i], i);
 		else
-			newGrid = evaluateBottomRow(newGrid, grid, grid[i], i);
+			newGrid = updateBottomRow(newGrid, grid, grid[i], i);
 	}
 	updateGrid(newGrid);
 };
 
-const evaluateTopRow = (newGrid: Grid, grid: Grid, row, i): number[][] => {
+const updateTopRow = (newGrid: Grid, grid: Grid, row, i): number[][] => {
 	for (let j = 0; j < row.length; j++) {
 		let neighbors = 0;
 		if (j === 0)
@@ -69,7 +70,7 @@ const updateNewGrid = (grid, newGrid, neighbors, i, j) => {
 	return newGrid;
 };
 
-const evaluateBottomRow = (newGrid: Grid, grid: Grid, row, i): number[][] => {
+const updateBottomRow = (newGrid: Grid, grid: Grid, row, i): number[][] => {
 	for (let j = 0; j < row.length; j++) {
 		let neighbors = 0;
 		if (j === 0)
@@ -83,24 +84,18 @@ const evaluateBottomRow = (newGrid: Grid, grid: Grid, row, i): number[][] => {
 	return newGrid;
 };
 
-const evaluateInteriorRow = (newGrid: Grid, grid: Grid, row, i):number[][] => {
-	for (let j = 0; j < row.length - 1; j++){
-		const neighbors = getTotalNeighbors(grid, i, j);
-		newGrid = updateNewGrid(grid, newGrid, neighbors, i, j);
+const updateInteriorRow = (newGrid: Grid, grid: Grid, row, i):number[][] => {
+	for (let j = 0; j < grid.length; j++){
+		let totalNeighbors = 0;
+		if (j === 0)
+			totalNeighbors = addEachNeighbor(totalNeighbors, getLeftEdgeNeighbors(grid, i, j));
+		if (j > 0 && j < grid.length - 1)
+			totalNeighbors = addEachNeighbor(totalNeighbors, getCentralNeighbors(grid, i, j));
+		if (j === grid.length - 1)
+			totalNeighbors = addEachNeighbor(totalNeighbors, getRightEdgeNeighbors(grid, i, j));
+		newGrid = updateNewGrid(grid, newGrid, totalNeighbors, i, j);
 	}
 	return newGrid;
-};
-
-//For cells in interior rows, i.e. not the top or bottom rows.
-const getTotalNeighbors = (grid: Grid, i, j):number => {
-	let totalNeighbors = 0;
-	if (j === 0)
-		totalNeighbors = addEachNeighbor(totalNeighbors, getLeftEdgeNeighbors(grid, i, j));
-	if (j > 0 && j < grid.length - 1)
-		totalNeighbors = addEachNeighbor(totalNeighbors, getCentralNeighbors(grid, i, j));
-	if (j === grid.length - 1)
-		totalNeighbors = addEachNeighbor(totalNeighbors, getRightEdgeNeighbors(grid, i, j));
-	return totalNeighbors;
 };
 
 const addEachNeighbor = (totalNeighbors: number, arrayOfNeighborValues: number[]) => {
