@@ -1,4 +1,4 @@
-name: Main
+name: Run all unit tests
 
 on:
   pull_request:
