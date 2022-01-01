@@ -10,9 +10,13 @@ if [ "$create" == "y" ]
   then
     mkdir src/lib/"$componentName"
     cd src/lib/"$componentName"
-    touch "$componentName".svelte
-    touch "$componentName".spec.ts
-    touch "$componentNameUtils".spec.ts
-    touch "$componentNameUtils".ts
+    cat ../Template/Template.svelte > "$componentName".svelte
+    cat ../Template/Template.spec.ts > "$componentName".spec.ts
+    for FILE in *
+    do
+       sed "s/Template/$componentName/" $FILE
+    done
+#    cat ../TemplateUtils.ts > "$componentNameUtils".ts
+#    cat ../TemplateUtils.spec.ts > "$componentNameUtils".spec.ts
   else exit 1
 fi
