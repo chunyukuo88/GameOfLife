@@ -10,6 +10,18 @@ const startingGrid = [
 	[ -1, -1, -1, -1, -1, -1, -1 ],
 ];
 
+export const produceSquareGrid = (sideLength = 20) => {
+	const row = [];
+	for (let i = 0; i < sideLength; i++) {
+		row.push(-1);
+	}
+	const grid = [];
+	for (let i = 0; i < sideLength; i++) {
+		grid.push(row);
+	}
+	return grid;
+}
+
 export const cellClickHandler = (gridContext, row: number, value: number): void => {
 	const { grid, updateGrid } = gridContext;
 	const newGrid = [...grid];
@@ -26,13 +38,12 @@ export const evaluateAllCells = (gridContext, grid: Grid): void => {
 	const { updateGrid } = gridContext;
 	let newGrid = JSON.parse(JSON.stringify(grid));
 	for (let i = 0; i < grid.length; i++){
-		if (i === 0) {
+		if (i === 0)
 			newGrid = evaluateTopRow(newGrid, grid, grid[i], i);
-		} else if (i > 0 && i < grid.length - 1) {
+		else if (i > 0 && i < grid.length - 1)
 			newGrid = evaluateInteriorRow(newGrid, grid, grid[i], i);
-		} else {
+		else
 			newGrid = evaluateBottomRow(newGrid, grid, grid[i], i);
-		};
 	}
 	updateGrid(newGrid);
 };
@@ -52,10 +63,9 @@ const evaluateTopRow = (newGrid: Grid, grid: Grid, row, i): number[][] => {
 };
 
 const updateNewGrid = (grid, newGrid, neighbors, i, j) => {
-	if (lethalConditions(neighbors))
-		cellDies(newGrid, i, j);
-	if (healthyConditions(neighbors, grid, i, j))
-		cellSpawns(newGrid, i, j);
+	(healthyConditions(neighbors, grid, i, j))
+		? cellSpawns(newGrid, i, j)
+		: cellDies(newGrid, i, j);
 	return newGrid;
 };
 
@@ -98,7 +108,6 @@ const addEachNeighbor = (totalNeighbors: number, arrayOfNeighborValues: number[]
 	return totalNeighbors;
 };
 
-const lethalConditions = (neighbors) => neighbors > 3 || neighbors < 2;
 const healthyConditions = (neighbors, grid, i, j) => neighbors === 3 || (grid[i][j] === 1 && neighbors === 2);
 const cellDies = (grid, i, j) => grid[i][j] = -1;
 const cellSpawns = (grid, i, j) => grid[i][j] = 1;

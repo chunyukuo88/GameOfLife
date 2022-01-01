@@ -1,20 +1,12 @@
 <script lang='ts'>
 	import {
 		cellClickHandler,
-		evaluateAllCells,
-		resetGrid,
+		evaluateAllCells, produceSquareGrid,
+		resetGrid
 	} from '$lib/gameOfLifeUtils';
 	import { setContext } from 'svelte';
 
-	const startingGrid = [
-		[ -1, -1, -1, -1, -1, -1, -1 ],
-		[ -1, -1, -1, -1, -1, -1, -1 ],
-		[ -1, -1, -1, -1, -1, -1, -1 ],
-		[ -1, -1, -1, -1, -1, -1, -1 ],
-		[ -1, -1, -1, -1, -1, -1, -1 ],
-		[ -1, -1, -1, -1, -1, -1, -1 ],
-		[ -1, -1, -1, -1, -1, -1, -1 ],
-	];
+	const startingGrid = produceSquareGrid(40);
 	export let exposedGrid = JSON.parse(JSON.stringify(startingGrid));
 	const gridContext = {
 		grid: exposedGrid,
@@ -53,6 +45,6 @@
 	}
 	td {
 		background: gray;
-		font-size: 5rem;
+		user-select: none;
 	}
 </style>
