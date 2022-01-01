@@ -11,6 +11,15 @@ jobs:
       matrix:
         node-version: [16.x]
     steps:
+      - name: Checkout Commit
+        uses: actions/checkout@v2
+
+      - name: Set up Node using version ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install node modules without updating dependencies
+        uses: npm ci
+
       - name: Run all unit tests
         run: "npm run c"
-        working-directory: "/"
