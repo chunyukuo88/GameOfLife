@@ -37,6 +37,14 @@ describe('gameOfLifeUtils.ts', ()=>{
 				const result = produceSquareGrid(4);
 
 				expect(result).toEqual(expectedResult);
+				expect(result).toHaveLength(4);
+			});
+		});
+		describe('GIVEN: this function is not passed a parameter', ()=>{
+			it('THEN: It produces a 2D square array with a side length of 20.', ()=>{
+				const result = produceSquareGrid();
+
+				expect(result).toHaveLength(20);
 			});
 		});
 	});
