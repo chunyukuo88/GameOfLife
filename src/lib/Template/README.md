@@ -1,0 +1,1 @@
+This template is referenced by ~/createComponent.sh.
