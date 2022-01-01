@@ -102,13 +102,13 @@ describe('gameOfLifeUtils.ts', ()=>{
 				expect(grid).toEqual(expected);
 			});
 		});
-		describe('WHEN: A three-cell column', ()=>{
-			it('THEN: it becomes a three-cell row (propeller).', ()=>{
+		describe('WHEN: A three-cell row', ()=>{
+			it('THEN: it becomes a three-cell column (propeller).', ()=>{
 				grid = [ // Note the center column
 					[ -1, -1, -1, -1, -1 ],
-					[ -1, -1,  1, -1, -1 ],
-					[ -1, -1,  1, -1, -1 ],
-					[ -1, -1,  1, -1, -1 ],
+					[ -1,  1,  1,  1, -1 ],
+					[ -1, -1, -1, -1, -1 ],
+					[ -1, -1, -1, -1, -1 ],
 					[ -1, -1, -1, -1, -1 ],
 				];
 				const gridContext = {
@@ -116,9 +116,9 @@ describe('gameOfLifeUtils.ts', ()=>{
 					updateGrid: (newGrid) => grid = newGrid
 				};
 				const expected = [ // Note the center row
-					[ -1, -1, -1, -1, -1 ],
-					[ -1, -1, -1, -1, -1 ],
-					[ -1,  1,  1,  1, -1 ],
+					[ -1, -1,  1, -1, -1 ],
+					[ -1, -1,  1, -1, -1 ],
+					[ -1, -1,  1, -1, -1 ],
 					[ -1, -1, -1, -1, -1 ],
 					[ -1, -1, -1, -1, -1 ],
 				];
