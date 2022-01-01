@@ -32,7 +32,8 @@ export const cellClickHandler = (gridContext, row: number, value: number): void 
 
 export const resetGrid = (gridContext) => {
 	const { updateGrid } = gridContext;
-	updateGrid(startingGrid);
+	// updateGrid(startingGrid);
+	updateGrid('deliberately breaking this functionality in order to test Github Actions.');
 }
 
 export const evaluateAllCells = (gridContext, grid: Grid): void => {
