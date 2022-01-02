@@ -14,7 +14,7 @@ if [ "$create" == "y" ]
     cat ../Template/Template.spec.ts > "$componentName".spec.ts
     for FILE in *
     do
-       sed "s/Template/$componentName/" $FILE
+       sed -i "s/Template/$componentName/g" $FILE
     done
 #    cat ../TemplateUtils.ts > "$componentNameUtils".ts
 #    cat ../TemplateUtils.spec.ts > "$componentNameUtils".spec.ts
