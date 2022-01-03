@@ -5,6 +5,7 @@
 		resetGrid
 	} from '$lib/gameOfLifeUtils';
 	import { setContext } from 'svelte';
+	import SearchBar from '$lib/SearchBar/SearchBar.svelte';
 
 	const startingGrid = produceSquareGrid(40);
 	export let exposedGrid = JSON.parse(JSON.stringify(startingGrid));
@@ -19,6 +20,7 @@
 	const resetHandler = () => resetGrid(gridContext);
 </script>
 
+<SearchBar />
 <table>
 	{#each exposedGrid as row, i}
 		<tr>
