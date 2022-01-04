@@ -7,10 +7,14 @@
 	let results = ''
 	onMount(()=>{
 		fromEvent(searchBox, 'input')
-			.forEach(keypress => {
-				results += keypress.data;
-			});
+			.forEach(keypress => updateSearchQuery(keypress));
 	});
+
+	const updateSearchQuery = (keypress) => {
+		(keypress.data === null)
+			? results = results.slice(0, results.length - 1)
+			: results += keypress.data;
+	};
 </script>
 
 <input bind:this={searchBox} type='text'/><button>🔎</button>
