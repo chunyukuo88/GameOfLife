@@ -21,12 +21,13 @@ export const produceSquareGrid = (sideLength = 20) => {
 		grid.push(row);
 	}
 	return grid;
-}
+};
 
-export const cellClickHandler = (gridContext, row: number, value: number): void => {
-	const { grid, updateGrid } = gridContext;
-	const newGrid = [...grid];
-	newGrid[row][value] = -1 * grid[row][value];
+export const cellClickHandler = (gridStore, updateGrid, row: number, value: number): void => {
+	// TODO: There's got to be a better way. Consider lodash as a last resort.
+	const newGrid = JSON.parse(JSON.stringify(gridStore));
+	console.log(newGrid);
+	newGrid[row][value] = gridStore[row][value] * -1;
 	updateGrid(newGrid);
 };
 

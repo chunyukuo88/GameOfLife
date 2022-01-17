@@ -1,50 +1,24 @@
 <script lang='ts'>
-	import {
-		cellClickHandler,
-		evaluateAllCells, produceSquareGrid,
-		resetGrid
-	} from '$lib/GamePanel/common/gameOfLifeUtils';
+	import { evaluateAllCells, resetGrid } from '$lib/GamePanel/common/gameOfLifeUtils';
+	import { createGridContext } from '$lib/GamePanel/common/commonUtils';
 	import { setContext } from 'svelte';
+	import Grid from '$lib/GamePanel/components/Grid.svelte';
 
-	const startingGrid = produceSquareGrid(40);
-	export let exposedGrid = JSON.parse(JSON.stringify(startingGrid));
-	const gridContext = {
-		grid: exposedGrid,
-		updateGrid: (newGrid) => {
-			exposedGrid = newGrid;
-		}
-	};
+	const gridContext = createGridContext();
 	setContext('gridContext', gridContext);
-	const tickHandler = () => evaluateAllCells(gridContext, exposedGrid);
-	const resetHandler = () => resetGrid(gridContext);
+
+	// const tickHandler = () => evaluateAllCells(gridContext, exposedGrid);
+	const tickHandler = () => console.log('tickHandler()');
+	// const tickHandler = () => resetGrid(...);
+	const resetHandler = () => console.log('resetHandler()');
 </script>
 
-<table>
-	{#each exposedGrid as row, i}
-		<tr>
-			{#each row as val, j}
-				{#if (val === 1)}
-					<td on:click={()=>cellClickHandler(gridContext, i, j)} class='living'>{val}</td>
-				{:else}
-					<td on:click={()=>cellClickHandler(gridContext, i, j)}>{val}</td>
-				{/if}
-			{/each}
-		</tr>
-	{/each}
-</table>
+<Grid />
+
+
 <button on:click={tickHandler}>
 	<h1>Tick</h1>
 </button>
 <button on:click={resetHandler}>
 	<h1>Reset</h1>
 </button>
-
-		<style>
-	.living {
-		background: yellow;
-	}
-		td {
-		background: gray;
-		user-select: none;
-	}
-		</style>
