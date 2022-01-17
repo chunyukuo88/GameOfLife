@@ -1,4 +1,4 @@
-import { utility } from './TemplateUtils';
+import { utility } from './SearchBarUtils';
 
 describe(`${utility}()`, ()=>{
 	describe(`WHEN: ${utility} is invoked`, ()=>{
