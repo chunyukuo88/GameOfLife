@@ -2,7 +2,6 @@
 	import { onMount } from 'svelte';
 	import { fromEvent } from 'rxjs';
 
-	const url = 'https://jsonplaceholder.typicode.com/users/1/todos';
 	let searchBox;
 	let results = ''
 	onMount(()=>{
