@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { evaluateAllCells } from '$lib/GamePanel/common/gameOfLifeUtils';
+	import { evaluateAllCells } from '../../common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 
 	const { gridStore, updateGrid } = getContext('gridContext');

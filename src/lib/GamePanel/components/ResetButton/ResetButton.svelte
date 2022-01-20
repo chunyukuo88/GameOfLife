@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import { resetGrid } from '$lib/GamePanel/common/gameOfLifeUtils';
+	import { resetGrid } from '../../common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 
 	const gridContext = getContext('gridContext');

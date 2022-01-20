@@ -1,6 +1,6 @@
 <script lang='ts'>
 	import { getContext } from 'svelte';
-	import { cellClickHandler } from '$lib/GamePanel/common/gameOfLifeUtils';
+	import { cellClickHandler } from '../../common/gameOfLifeUtils';
 
 	const { gridStore, updateGrid } = getContext('gridContext');
 </script>
