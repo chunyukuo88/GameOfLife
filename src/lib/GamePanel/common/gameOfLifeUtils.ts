@@ -1,16 +1,5 @@
 type Grid = number[][];
 
-//Exported for unit test only.
-export const startingGrid = [
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-];
-
 export const produceSquareGrid = (sideLength = 20) => {
 	const row = [];
 	for (let i = 0; i < sideLength; i++) {
@@ -23,17 +12,18 @@ export const produceSquareGrid = (sideLength = 20) => {
 	return grid;
 };
 
+//Exported for unit test only.
+export const startingGrid = produceSquareGrid(40);
+
 export const cellClickHandler = (gridStore: Grid, updateGrid, row: number, value: number): void => {
 	const newGrid = JSON.parse(JSON.stringify(gridStore));
-	console.log(newGrid);
 	newGrid[row][value] = gridStore[row][value] * -1;
 	updateGrid(newGrid);
 };
 
 export const resetGrid = (updateGrid) => updateGrid(startingGrid);
 
-export const evaluateAllCells = (gridContext): void => {
-	const { gridStore, updateGrid } = gridContext;
+export const evaluateAllCells = (gridStore, updateGrid): void => {
 	let newGrid = JSON.parse(JSON.stringify(gridStore));
 	for (let i = 0; i < gridStore.length; i++){
 		if (i === 0)

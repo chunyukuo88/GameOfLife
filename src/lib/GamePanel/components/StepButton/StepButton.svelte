@@ -2,8 +2,8 @@
 	import { evaluateAllCells } from '$lib/GamePanel/common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 
-	const gridContext = getContext('gridContext');
-	const tickHandler = () => evaluateAllCells(gridContext);
+	const { gridStore, updateGrid } = getContext('gridContext');
+	const tickHandler = () => evaluateAllCells($gridStore, updateGrid);
 </script>
 
 <button on:click={tickHandler}>
