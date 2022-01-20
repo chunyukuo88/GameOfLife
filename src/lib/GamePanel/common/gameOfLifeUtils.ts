@@ -32,16 +32,16 @@ export const cellClickHandler = (gridStore: Grid, updateGrid, row: number, value
 
 export const resetGrid = (updateGrid) => updateGrid(startingGrid);
 
-export const evaluateAllCells = (gridContext, grid: Grid): void => {
-	const { updateGrid } = gridContext;
-	let newGrid = JSON.parse(JSON.stringify(grid));
-	for (let i = 0; i < grid.length; i++){
+export const evaluateAllCells = (gridContext): void => {
+	const { gridStore, updateGrid } = gridContext;
+	let newGrid = JSON.parse(JSON.stringify(gridStore));
+	for (let i = 0; i < gridStore.length; i++){
 		if (i === 0)
-			newGrid = updateTopRow(newGrid, grid, grid[i], i);
-		else if (i > 0 && i < grid.length - 1)
-			newGrid = updateInteriorRow(newGrid, grid, grid[i], i);
+			newGrid = updateTopRow(newGrid, gridStore, gridStore[i], i);
+		else if (i > 0 && i < gridStore.length - 1)
+			newGrid = updateInteriorRow(newGrid, gridStore, gridStore[i], i);
 		else
-			newGrid = updateBottomRow(newGrid, grid, grid[i], i);
+			newGrid = updateBottomRow(newGrid, gridStore, gridStore[i], i);
 	}
 	updateGrid(newGrid);
 };

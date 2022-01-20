@@ -1,22 +1,15 @@
 <script lang='ts'>
-	import { evaluateAllCells, resetGrid } from '$lib/GamePanel/common/gameOfLifeUtils';
 	import { createGridContext } from '$lib/GamePanel/common/commonUtils';
 	import { setContext } from 'svelte';
-	import Grid from '$lib/GamePanel/components/Grid.svelte';
-
+	import Grid from '$lib/GamePanel/components/Grid/Grid.svelte';
+	import ResetButton from '$lib/GamePanel/components/ResetButton/ResetButton.svelte';
+	import StepButton from '$lib/GamePanel/components/StepButton/StepButton.svelte';
 	const gridContext = createGridContext();
 	setContext('gridContext', gridContext);
-
-	const tickHandler = () => evaluateAllCells(gridContext, exposedGrid);
-	// const resetHandler = () => resetGrid(...);
 </script>
 
 
-
 <Grid />
-<button on:click={tickHandler}>
-	<h1>Tick</h1>
-</button>
-<!--<button on:click={resetHandler}>-->
-<!--	<h1>Reset</h1>-->
-<!--</button>-->
+<StepButton />
+<ResetButton />
+
