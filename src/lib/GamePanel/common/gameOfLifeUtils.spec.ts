@@ -76,16 +76,13 @@ describe('gameOfLifeUtils.ts', ()=>{
 	describe('evaluateAllCells()', ()=>{
 		describe('SCENARIOS: These are classic Game Of Life shapes', ()=>{
 			it('Propeller', ()=>{
-				grid = [ //propeller is near the lower-right corner
+				const gridStore = [ //propeller is near the lower-right corner
 					[ -1, -1, -1, -1 ],
 					[ -1, -1,  1, -1 ],
 					[ -1, -1,  1, -1 ],
 					[ -1, -1,  1, -1 ],
 				];
-				const gridContext = {
-					grid,
-					updateGrid: (newGrid) => grid = newGrid
-				};
+				const updateGrid = jest.fn();
 				const expected = [ // Note the center row
 					[ -1, -1, -1, -1 ],
 					[ -1, -1, -1, -1 ],
@@ -93,21 +90,18 @@ describe('gameOfLifeUtils.ts', ()=>{
 					[ -1, -1, -1, -1 ],
 				];
 
-				evaluateAllCells(gridContext, grid)
+				evaluateAllCells(gridStore, updateGrid)
 
-				expect(grid).toEqual(expected);
+				expect(updateGrid).toBeCalledWith(expected);
 			});
 			it('3-cell L -> 4-cell square', ()=>{
-				grid = [ // middle-right edge
+				const gridStore = [ // middle-right edge
 					[ -1, -1, -1, -1 ],
 					[ -1, -1,  1, -1 ],
 					[ -1, -1,  1,  1 ],
 					[ -1, -1, -1, -1 ],
 				];
-				const gridContext = {
-					grid,
-					updateGrid: (newGrid) => grid = newGrid
-				};
+				const updateGrid = jest.fn();
 				const expected = [ // Note the center row
 					[ -1, -1, -1, -1 ],
 					[ -1, -1,  1,  1 ],
@@ -115,9 +109,9 @@ describe('gameOfLifeUtils.ts', ()=>{
 					[ -1, -1, -1, -1 ],
 				];
 
-				evaluateAllCells(gridContext, grid)
+				evaluateAllCells(gridStore, updateGrid)
 
-				expect(grid).toEqual(expected);
+				expect(updateGrid).toBeCalledWith(expected);
 			});
 		});
 	});
