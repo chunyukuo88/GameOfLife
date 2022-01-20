@@ -7,18 +7,16 @@
 	const gridContext = createGridContext();
 	setContext('gridContext', gridContext);
 
-	// const tickHandler = () => evaluateAllCells(gridContext, exposedGrid);
-	const tickHandler = () => console.log('tickHandler()');
-	// const tickHandler = () => resetGrid(...);
-	const resetHandler = () => console.log('resetHandler()');
+	const tickHandler = () => evaluateAllCells(gridContext, exposedGrid);
+	// const resetHandler = () => resetGrid(...);
 </script>
 
+
+
 <Grid />
-
-
 <button on:click={tickHandler}>
 	<h1>Tick</h1>
 </button>
-<button on:click={resetHandler}>
-	<h1>Reset</h1>
-</button>
+<!--<button on:click={resetHandler}>-->
+<!--	<h1>Reset</h1>-->
+<!--</button>-->
