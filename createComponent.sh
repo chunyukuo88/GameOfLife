@@ -10,13 +10,13 @@ if [ "$create" == "y" ]
   then
     mkdir src/lib/"$componentName"
     cd src/lib/"$componentName"
-    cat ../Template/Template.svelte > "$componentName".svelte
-    cat ../Template/Template.spec.ts > "$componentName".spec.ts
-    cat ../Template/TemplateUtils.ts > "$componentName"Utils.ts
-    cat ../Template/TemplateUtils.spec.ts > "$componentName"Utils.spec.ts
+    cat ../__Template__/Template.svelte > "$componentName".svelte
+    cat ../__Template__/Template.spec.ts > "$componentName".spec.ts
+    cat ../__Template__/TemplateUtils.ts > "$componentName"Utils.ts
+    cat ../__Template__/TemplateUtils.spec.ts > "$componentName"Utils.spec.ts
     for file in *;
     do
-       sed -i "" "s/Template/$componentName/g" $file
+       sed -i "" "s/__Template__/$componentName/g" $file
     done
   else exit 1
 fi

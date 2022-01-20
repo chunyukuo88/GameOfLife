@@ -1,16 +1,5 @@
 type Grid = number[][];
 
-//Exported for unit test only.
-export const startingGrid = [
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-	[ -1, -1, -1, -1, -1, -1, -1 ],
-];
-
 export const produceSquareGrid = (sideLength = 20) => {
 	const row = [];
 	for (let i = 0; i < sideLength; i++) {
@@ -21,30 +10,28 @@ export const produceSquareGrid = (sideLength = 20) => {
 		grid.push(row);
 	}
 	return grid;
-}
+};
 
-export const cellClickHandler = (gridContext, row: number, value: number): void => {
-	const { grid, updateGrid } = gridContext;
-	const newGrid = [...grid];
-	newGrid[row][value] = -1 * grid[row][value];
+//Exported for unit test only.
+export const startingGrid = produceSquareGrid(40);
+
+export const cellClickHandler = (gridStore: Grid, updateGrid, row: number, value: number): void => {
+	const newGrid = JSON.parse(JSON.stringify(gridStore));
+	newGrid[row][value] = gridStore[row][value] * -1;
 	updateGrid(newGrid);
 };
 
-export const resetGrid = (gridContext) => {
-	const { updateGrid } = gridContext;
-	updateGrid(startingGrid);
-}
+export const resetGrid = (updateGrid) => updateGrid(startingGrid);
 
-export const evaluateAllCells = (gridContext, grid: Grid): void => {
-	const { updateGrid } = gridContext;
-	let newGrid = JSON.parse(JSON.stringify(grid));
-	for (let i = 0; i < grid.length; i++){
+export const evaluateAllCells = (gridStore, updateGrid): void => {
+	let newGrid = JSON.parse(JSON.stringify(gridStore));
+	for (let i = 0; i < gridStore.length; i++){
 		if (i === 0)
-			newGrid = updateTopRow(newGrid, grid, grid[i], i);
-		else if (i > 0 && i < grid.length - 1)
-			newGrid = updateInteriorRow(newGrid, grid, grid[i], i);
+			newGrid = updateTopRow(newGrid, gridStore, gridStore[i], i);
+		else if (i > 0 && i < gridStore.length - 1)
+			newGrid = updateInteriorRow(newGrid, gridStore, gridStore[i], i);
 		else
-			newGrid = updateBottomRow(newGrid, grid, grid[i], i);
+			newGrid = updateBottomRow(newGrid, gridStore, gridStore[i], i);
 	}
 	updateGrid(newGrid);
 };

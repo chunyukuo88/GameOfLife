@@ -2,6 +2,8 @@ module.exports = {
   collectCoverageFrom: [
     "./src/lib/**/*.svelte",
     "./src/lib/**/*.ts",
+    "./src/lib/**/**/*.svelte",
+    "./src/lib/**/**/*.ts",
     "!./src/lib/Template/**",
   ],
   extensionsToTreatAsEsm: [".ts"],
