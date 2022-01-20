@@ -4,7 +4,7 @@ module.exports = {
     "./src/lib/**/*.ts",
     "./src/lib/**/**/*.svelte",
     "./src/lib/**/**/*.ts",
-    "!./src/lib/Template/**",
+    "!./src/lib/__Template__/**",
   ],
   extensionsToTreatAsEsm: [".ts"],
   globals: {
