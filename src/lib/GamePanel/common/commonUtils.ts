@@ -1,7 +1,6 @@
-import { gridStore } from './stores';
-// import { createGridStore } from './stores';
+import { createGridStore } from './stores';
 
-// const gridStore = createGridStore();
+const gridStore = createGridStore();
 
 export const createGridContext = () => ({
 	gridStore,

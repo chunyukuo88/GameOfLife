@@ -1,26 +1,30 @@
 import OnOffSwitch from "./OnOffSwitch.svelte";
-import { fireEvent, render, screen } from '@testing-library/svelte';
-import { getContext } from 'svelte';
+import { fireEvent, render } from '@testing-library/svelte';
 import "@testing-library/jest-dom";
-import { gridStore } from '../../common/stores;
+import { createGridStore } from '../../../GamePanel/common/stores';
+import { getContext } from 'svelte'; // Shows as gray in IDE but this is being used.
 
-gridStore.set({});
+jest.mock('../../../GamePanel/common/stores');
+const mockCreatGridStore = createGridStore as jest.Mock<unknown>;
+mockCreatGridStore.mockImplementation(jest.fn());
+
 jest.mock('svelte', ()=>{
   const originalModule = jest.requireActual('svelte');
   return {
     __esModule: true,
     ...originalModule,
-    getContext: jest.fn(() => ({
+    // This method is active despite the gray
+    getContext: () => ({
       gridStore: {
-        subscribe: jest.fn(),
-        unsubscribe: jest.fn()
+        subscribe: () => function unsubscribe(){
+          return null;
+        },
       },
       updateGrid: jest.fn()
-    })),
+    }),
   };
 });
 
-const mockedGetContext = getContext as jest.Mock<unknown>;
 
 describe("OnSwitch.svelte", () => {
   describe("Interaction", () => {
@@ -31,7 +35,6 @@ describe("OnSwitch.svelte", () => {
     });
     describe("WHEN: The user clicks the button once", () => {
       it("THEN: The stream begins", () => {
-        mockedGetContext.mockImplementation(jest.fn());
         const spy = jest.spyOn(window, 'setInterval');
 
         fireEvent.click(button);
@@ -41,9 +44,14 @@ describe("OnSwitch.svelte", () => {
     });
     describe("WHEN: The user clicks the button twice", () => {
       it("THEN: The stream begins and then ends", () => {
-        render(OnOffSwitch);
+        const setIntervalSpy = jest.spyOn(window, 'setInterval');
+        const clearIntervalSpy = jest.spyOn(window, 'clearInterval');
 
-        //
+        fireEvent.click(button);
+        fireEvent.click(button);
+
+        expect(setIntervalSpy).toBeCalledTimes(1);
+        expect(clearIntervalSpy).toBeCalledTimes(1);
       });
     });
   });
