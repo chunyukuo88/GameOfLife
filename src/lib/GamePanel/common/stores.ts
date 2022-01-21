@@ -3,4 +3,7 @@ import { produceSquareGrid } from './gameOfLifeUtils';
 
 const startingGrid = produceSquareGrid(40);
 
-export const gridStore = writable(startingGrid);
+export const createGridStore = () => {
+	const gridStore = writable(startingGrid);
+	return gridStore;
+}
