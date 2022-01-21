@@ -33,6 +33,9 @@ describe("OnSwitch.svelte", () => {
       const { getByText } = render(OnOffSwitch);
       button = getByText('On/Off');
     });
+    afterEach(()=>{
+      jest.clearAllMocks();
+    });
     describe("WHEN: The user clicks the button once", () => {
       it("THEN: The stream begins", () => {
         const spy = jest.spyOn(window, 'setInterval');
