@@ -21,10 +21,14 @@
 
 <style>
 	.living {
-			background: yellow;
+		background: yellow;
+		color: yellow;
 	}
   td {
-      background: gray;
-      user-select: none;
+		background: gray;
+		color: gray;
+		max-height: 0.6rem;
+		user-select: none;
+		max-width: 0.6rem;
   }
 </style>
