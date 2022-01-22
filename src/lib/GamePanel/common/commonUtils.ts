@@ -1,4 +1,4 @@
-import {
+3import {
 	createGridStore,
 	createIsTickingStore,
 	createSpeedStore

@@ -5,7 +5,7 @@
 	import ResetButton from './components/ResetButton/ResetButton.svelte';
 	import StepButton from './components/StepButton/StepButton.svelte';
 	import OnSwitch from './components/OnOffSwitch/OnOffSwitch.svelte';
-	import SpeedAdjuster from '$lib/GamePanel/components/SpeedAdjuster/SpeedAdjuster.svelte';
+	import SpeedAdjuster from './components/SpeedAdjuster/SpeedAdjuster.svelte';
 
 	const gridContext = Contexts.createGridContext();
 	const tickingContext = Contexts.createTickingContext();

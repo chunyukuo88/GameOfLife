@@ -11,7 +11,7 @@ export const getReactiveCssClass = (value: number): string => {
 	return 'above90';
 };
 
-// export const sliderHandler = (event, updateTicking, updateSpeed): void => {
-// 	updateTicking(false);
-// 	updateSpeed(event.target.value);
-// };
+export const sliderHandler = (event, updateTicking, updateSpeed): void => {
+	updateTicking(false);
+	updateSpeed(event.target.value);
+};
