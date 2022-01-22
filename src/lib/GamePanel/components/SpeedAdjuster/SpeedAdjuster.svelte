@@ -2,13 +2,9 @@
 	import { getReactiveCssClass } from './SpeedAdjusterUtils';
 	import { getContext } from 'svelte';
 
-	let value;
+	let value = 20;
 	const { updateSpeed } = getContext('speedContext');
-	const { stopTicking } = getContext('tickingContext');
-	const sliderHandler = () => {
-		stopTicking();
-		updateSpeed(value);
-	};
+	const sliderHandler = () => updateSpeed(value);
 
 	$: reactiveStyling = getReactiveCssClass(value);
 </script>

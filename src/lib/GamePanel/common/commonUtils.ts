@@ -16,7 +16,7 @@ export const createGridContext = () => ({
 export const createTickingContext = () => ({
 	isTickingStore,
 	stopTicking: () => isTickingStore.set(false),
-	startTicking: () => isTickingStore.set(false),
+	startTicking: () => isTickingStore.set(true),
 });
 
 export const createSpeedContext = () => ({

@@ -3,14 +3,15 @@
 	import { getContext } from 'svelte';
 
 	const { gridStore, updateGrid } = getContext('gridContext');
+	const { isTickingStore, stopTicking, startTicking } = getContext('tickingContext');
+	const { speedStore, updateSpeed } = getContext('speedContext');
 
-	let isTicking = false;
 	let tickerId;
 	const tick = () => evaluateAllCells($gridStore, updateGrid);
 
 	function clickHandler(){
-		isTicking = !isTicking;
-		if (isTicking) tickerId = setInterval(tick, 100);
+		($isTickingStore === true) ? stopTicking() : startTicking();
+		if ($isTickingStore) tickerId = setInterval(tick, $speedStore * 2);
 		else clearInterval(tickerId);
 	}
 </script>
