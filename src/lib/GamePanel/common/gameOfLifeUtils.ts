@@ -13,7 +13,7 @@ export const produceSquareGrid = (sideLength = 20) => {
 };
 
 //Exported for unit test only.
-export const startingGrid = produceSquareGrid(40);
+export const startingGrid = produceSquareGrid(50);
 
 export const cellClickHandler = (gridStore: Grid, updateGrid, row: number, value: number): void => {
 	const newGrid = JSON.parse(JSON.stringify(gridStore));

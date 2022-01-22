@@ -1,9 +1,8 @@
 import { writable } from "svelte/store";
 import { produceSquareGrid } from './gameOfLifeUtils';
 
-const startingGrid = produceSquareGrid(40);
+const startingGrid = produceSquareGrid(50);
 
-export const createGridStore = () => {
-	const gridStore = writable(startingGrid);
-	return gridStore;
-}
+export const createGridStore = () => writable(startingGrid);
+export const createIsTickingStore = () => writable(false);
+export const createSpeedStore = () => writable(20);

@@ -2,8 +2,8 @@
 	import { resetGrid } from '../../common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 
-	const gridContext = getContext('gridContext');
-	const resetHandler = () => resetGrid(gridContext.updateGrid);
+	const { updateGrid } = getContext('gridContext');
+	const resetHandler = () => resetGrid(updateGrid);
 </script>
 
 <button on:click={resetHandler}>
