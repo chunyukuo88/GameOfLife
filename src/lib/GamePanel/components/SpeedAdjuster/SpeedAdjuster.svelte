@@ -1,13 +1,12 @@
 <script lang="ts">
-	import { getContext } from 'svelte';
 	import { getReactiveCssClass } from './SpeedAdjusterUtils';
+	import { getContext } from 'svelte';
 
 	let value;
-	// const { updateTicking } = getContext('tickingContext');
-	// const { updateSpeed } = getContext('speedContext');
-	const { updateSpeed, updateTicking } = getContext('gridContext');
+	const { updateSpeed } = getContext('speedContext');
+	const { stopTicking } = getContext('tickingContext');
 	const sliderHandler = () => {
-		updateTicking(false);
+		stopTicking();
 		updateSpeed(value);
 	};
 

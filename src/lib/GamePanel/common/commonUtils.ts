@@ -11,14 +11,14 @@ const speedStore = createSpeedStore();
 export const createGridContext = () => ({
 	gridStore,
 	updateGrid: (newGrid) => gridStore.set(newGrid),
-		speedStore,
-	updateSpeed: (newSpeed) => {
-		console.log('updateSpeed()');
-		speedStore.set(newSpeed);
-	},
-		isTickingStore,
-	updateTicking: () => {
-		console.log('updateTicking()');
-		isTickingStore.set(!isTickingStore);
-	},
+});
+
+export const createTickingContext = () => ({
+	isTickingStore,
+	stopTicking: () => isTickingStore.set(false),
+});
+
+export const createSpeedContext = () => ({
+	speedStore,
+	updateSpeed: (newSpeed) => speedStore.set(newSpeed),
 });

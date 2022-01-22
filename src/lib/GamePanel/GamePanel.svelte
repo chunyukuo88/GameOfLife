@@ -8,7 +8,11 @@
 	import SpeedAdjuster from '$lib/GamePanel/components/SpeedAdjuster/SpeedAdjuster.svelte';
 
 	const gridContext = Contexts.createGridContext();
+	const tickingContext = Contexts.createTickingContext();
+	const speedContext = Contexts.createSpeedContext();
 	setContext('gridContext', gridContext);
+	setContext('tickingContext', tickingContext);
+	setContext('speedContext', speedContext);
 </script>
 
 <Grid />
