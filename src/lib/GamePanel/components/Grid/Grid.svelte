@@ -12,7 +12,8 @@
 				{#if (val === 1)}
 					<td on:click={()=>cellClickHandler($gridStore, updateGrid, i, j)} class='living'>{val}</td>
 				{:else}
-					<td on:click={()=>cellClickHandler($gridStore, updateGrid, i, j)}>{val}</td>
+					<td on:click={()=>cellClickHandler($gridStore, updateGrid, i, j)}>
+						{val}</td>
 				{/if}
 			{/each}
 		</tr>

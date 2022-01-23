@@ -4,7 +4,6 @@ export const mockedEntireContext = {
 			return null;
 		},
 	},
-	$isTickingStore: false,
 	isTickingStore: {
 		subscribe: () => function unsubscribe(){
 			return null;
