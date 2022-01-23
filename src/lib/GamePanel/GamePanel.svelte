@@ -7,9 +7,9 @@
 	import OnSwitch from './components/OnOffSwitch/OnOffSwitch.svelte';
 	import SpeedAdjuster from './components/SpeedAdjuster/SpeedAdjuster.svelte';
 
-	const gridContext = Contexts.createGridContext();
-	const tickingContext = Contexts.createTickingContext();
-	const speedContext = Contexts.createSpeedContext();
+	const gridContext = Contexts.createGridContext;
+	const tickingContext = Contexts.createTickingContext;
+	const speedContext = Contexts.createSpeedContext;
 	setContext('gridContext', gridContext);
 	setContext('tickingContext', tickingContext);
 	setContext('speedContext', speedContext);
