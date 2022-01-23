@@ -2,12 +2,14 @@
 	import { createGridStore, createIsTickingStore, createSpeedStore } from './common/stores';
 	import { createGridContext, createTickingContext, createSpeedContext } from './common/contexts';
 	import { setContext } from 'svelte';
+	import { patternLabels } from './common/patterns';
 	import Grid from './components/Grid/Grid.svelte';
 	import ResetButton from './components/ResetButton/ResetButton.svelte';
 	import StepButton from './components/StepButton/StepButton.svelte';
 	import OnSwitch from './components/OnOffSwitch/OnOffSwitch.svelte';
 	import SpeedAdjuster from './components/SpeedAdjuster/SpeedAdjuster.svelte';
 	import PatternsButton from './components/PatternsButton/PatternsButton.svelte';
+	const { BUTTERFLY, GLIDERS, REFLECTOR, MAGIC_BOX } = patternLabels;
 
 	const gridContext = createGridContext(createGridStore());
 	const tickingContext = createTickingContext(createIsTickingStore());
@@ -22,5 +24,7 @@
 <ResetButton />
 <OnSwitch />
 <SpeedAdjuster/>
-<PatternsButton label={'gliders'}/>
-<PatternsButton label={'butterfly'}/>
+<PatternsButton label={BUTTERFLY}/>
+<PatternsButton label={GLIDERS}/>
+<PatternsButton label={MAGIC_BOX}/>
+<PatternsButton label={REFLECTOR}/>
