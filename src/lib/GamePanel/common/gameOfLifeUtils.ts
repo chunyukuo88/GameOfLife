@@ -1,3 +1,5 @@
+import { patterns } from './patterns';
+
 type Grid = number[][];
 
 export const produceSquareGrid = (sideLength = 20) => {
@@ -16,6 +18,8 @@ export const produceSquareGrid = (sideLength = 20) => {
 export const startingGrid = produceSquareGrid(50);
 
 export const resetGrid = (updateGrid) => updateGrid(startingGrid);
+
+export const updateWithPattern = (updateGrid, label) => updateGrid(patterns[label]);
 
 export const evaluateAllCells = (gridStore, updateGrid): void => {
 	let newGrid = JSON.parse(JSON.stringify(gridStore));
