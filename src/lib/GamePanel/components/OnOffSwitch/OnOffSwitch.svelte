@@ -14,7 +14,6 @@
 		if ($isTickingStore) tickerId = setInterval(() => ticker($gridStore, updateGrid), interval);
 		else clearInterval(tickerId);
 	}
-
 </script>
 
 <button on:click={clickHandler}>
