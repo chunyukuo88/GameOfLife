@@ -1,5 +1,4 @@
 import {
-	cellClickHandler,
 	evaluateAllCells,
 	produceSquareGrid,
 	resetGrid,
@@ -13,8 +12,6 @@ import {
  - Any live cell with more than three live neighbours dies, as if by overpopulation.
  - Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
  * */
-
-let grid: number[][];
 
 describe('gameOfLifeUtils.ts', ()=>{
 	describe('resetGrid()', ()=>{
@@ -49,27 +46,6 @@ describe('gameOfLifeUtils.ts', ()=>{
 				const result = produceSquareGrid();
 
 				expect(result).toHaveLength(20);
-			});
-		});
-	});
-	describe('cellClickHandler()', ()=>{
-		describe('GIVEN: A gridContext object, and row & value coordinates', ()=>{
-			describe('WHEN: All original grid values are negative', ()=>{
-				it('THEN: It updates the grid using the method in the gridContext.', ()=>{
-					const gridStore = [
-						[ -1, -1 ],
-						[ -1,  1 ],
-					];
-					const updateGrid = jest.fn();
-					const expectedResult = [
-						[ -1, -1 ],
-						[ -1, -1 ],
-					];
-
-					cellClickHandler(gridStore, updateGrid, 1, 1);
-
-					expect(updateGrid).toHaveBeenCalledWith(expectedResult);
-				});
 			});
 		});
 	});

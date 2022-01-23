@@ -1,5 +1,6 @@
 <script lang='ts'>
-	import { gridContext, tickingContext, speedContext } from './common/commonUtils';
+	import { createGridStore, createIsTickingStore, createSpeedStore } from './common/stores';
+	import { createGridContext, createTickingContext, createSpeedContext } from './common/contexts';
 	import { setContext } from 'svelte';
 	import Grid from './components/Grid/Grid.svelte';
 	import ResetButton from './components/ResetButton/ResetButton.svelte';
@@ -7,6 +8,9 @@
 	import OnSwitch from './components/OnOffSwitch/OnOffSwitch.svelte';
 	import SpeedAdjuster from './components/SpeedAdjuster/SpeedAdjuster.svelte';
 
+	const gridContext = createGridContext(createGridStore());
+	const tickingContext = createTickingContext(createIsTickingStore());
+	const speedContext = createSpeedContext(createSpeedStore());
 	setContext('gridContext', gridContext);
 	setContext('tickingContext', tickingContext);
 	setContext('speedContext', speedContext);

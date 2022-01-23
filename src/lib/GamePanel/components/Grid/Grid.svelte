@@ -1,35 +1,17 @@
 <script lang='ts'>
+	import Cell from '../../components/Cell/Cell.svelte';
 	import { getContext } from 'svelte';
-	import { cellClickHandler } from '../../common/gameOfLifeUtils';
 
-	const { gridStore, updateGrid } = getContext('gridContext');
+	const { gridStore } = getContext('gridContext');
 </script>
 
 <table>
 	{#each $gridStore as row, i}
 		<tr>
-			{#each row as val, j}
-				{#if (val === 1)}
-					<td on:click={()=>cellClickHandler($gridStore, updateGrid, i, j)} class='living'>{val}</td>
-				{:else}
-					<td on:click={()=>cellClickHandler($gridStore, updateGrid, i, j)}>
-						{val}</td>
-				{/if}
+			{#each row as value, j}
+				<Cell {row} {value} {i} {j}/>
 			{/each}
 		</tr>
 	{/each}
 </table>
 
-<style>
-	.living {
-		background: yellow;
-		color: yellow;
-	}
-  td {
-		background: gray;
-		color: gray;
-		max-height: 0.6rem;
-		user-select: none;
-		max-width: 0.6rem;
-  }
-</style>
