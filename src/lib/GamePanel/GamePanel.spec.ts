@@ -1,5 +1,15 @@
 import GamePanel from './GamePanel.svelte';
-import { render, fireEvent } from '@testing-library/svelte';
+import { render, fireEvent, screen } from '@testing-library/svelte';
+import { updateWithPattern } from './common/gameOfLifeUtils';
+
+jest.mock('./common/gameOfLifeUtils', ()=>{
+	const originalModule = jest.requireActual('./common/gameOfLifeUtils');
+	return {
+		__esModule: true,
+		...originalModule,
+		updateWithPattern: jest.fn()
+	};
+});
 
 describe('GIVEN: The grid renders', ()=>{
 	afterEach(()=>{
@@ -78,6 +88,21 @@ describe('GIVEN: The grid renders', ()=>{
 				() => expect(cell).toHaveTextContent('-1'),
 				100
 			)
+		});
+	});
+	describe('WHEN: The user clicks the gliders button, ', ()=>{
+		it('THEN: Gliders are rendered.', ()=>{
+			jest.clearAllMocks();
+			const mockUpdateGrid = expect.any(Function);
+			const label = 'gliders';
+			render(GamePanel);
+
+			const glidersButton = screen.getAllByText(label)[0];
+
+			expect(glidersButton).toBeInTheDocument();
+			fireEvent.click(glidersButton);
+
+			expect(updateWithPattern).toHaveBeenCalledWith(mockUpdateGrid, label);
 		});
 	});
 });

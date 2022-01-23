@@ -2,7 +2,8 @@ import {
 	evaluateAllCells,
 	produceSquareGrid,
 	resetGrid,
-	startingGrid
+	startingGrid,
+	updateWithPattern
 } from './gameOfLifeUtils';
 
 /** RULES (from https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
@@ -88,6 +89,20 @@ describe('gameOfLifeUtils.ts', ()=>{
 				evaluateAllCells(gridStore, updateGrid)
 
 				expect(updateGrid).toBeCalledWith(expected);
+			});
+		});
+	});
+	describe('updateWithPattern()', ()=>{
+		describe('WHEN: Given an updateGrid fn and a pattern', ()=>{
+			it('THEN: The updateGrid is invoked with the pattern as an argument.', ()=>{
+				const updateGrid = jest.fn();
+				const pattern = [
+					[]
+				];
+
+				updateWithPattern(updateGrid, pattern);
+
+				expect(updateGrid).toHaveBeenCalledWith(pattern);
 			});
 		});
 	});

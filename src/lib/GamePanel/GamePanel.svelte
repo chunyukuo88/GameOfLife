@@ -7,6 +7,7 @@
 	import StepButton from './components/StepButton/StepButton.svelte';
 	import OnSwitch from './components/OnOffSwitch/OnOffSwitch.svelte';
 	import SpeedAdjuster from './components/SpeedAdjuster/SpeedAdjuster.svelte';
+	import PatternsButton from './components/PatternsButton/PatternsButton.svelte';
 
 	const gridContext = createGridContext(createGridStore());
 	const tickingContext = createTickingContext(createIsTickingStore());
@@ -21,3 +22,5 @@
 <ResetButton />
 <OnSwitch />
 <SpeedAdjuster/>
+<PatternsButton label={'gliders'}/>
+<PatternsButton label={'butterfly'}/>
