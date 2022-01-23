@@ -14,12 +14,29 @@
 		if ($isTickingStore) tickerId = setInterval(() => ticker($gridStore, updateGrid), interval);
 		else clearInterval(tickerId);
 	}
+
+	$: label = ($isTickingStore === true) ? 'ON' : 'OFF';
+	$: tickingStatus = ($isTickingStore === true) ? 'ticking-on' : 'ticking-off';
 </script>
 
-<button on:click={clickHandler}>
-	<h1>
-		On/Off
+<button on:click={clickHandler} class='{tickingStatus}'>
+	<h1 >
+		{label}
 	</h1>
 </button>
+
+<style>
+	button {
+		width: 150px;
+	}
+	.ticking-on {
+		background-color: green;
+		color: white;
+	}
+	.ticking-off {
+		background-color: red;
+		color: black;
+	}
+</style>
 
 

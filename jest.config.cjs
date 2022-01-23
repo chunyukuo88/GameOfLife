@@ -4,7 +4,9 @@ module.exports = {
     "./src/lib/**/*.ts",
     "./src/lib/**/**/*.svelte",
     "./src/lib/**/**/*.ts",
-    "!./src/lib/__Template__/**"
+    "!./src/lib/__Template__/**",
+    "!./src/lib/GamePanel/components/SearchBar/*.svelte",
+    "!./src/lib/GamePanel/components/SearchBar/*.ts"
   ],
   extensionsToTreatAsEsm: [".ts"],
   globals: {

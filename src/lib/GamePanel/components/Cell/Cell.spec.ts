@@ -15,20 +15,7 @@ jest.mock('svelte', ()=>{
           return null;
         },
       },
-      isTickingStore: {
-        subscribe: () => function unsubscribe(){
-          return null;
-        },
-      },
-      speedStore: {
-        subscribe: () => function unsubscribe(){
-          return null;
-        },
-      },
       updateGrid: jest.fn(),
-      stopTicking: jest.fn(),
-      startTicking: jest.fn(),
-      updateSpeed: jest.fn(),
     }),
   };
 });
@@ -52,36 +39,46 @@ describe("Cell.svelte", () => {
       it("THEN: It displays a living cell", () => {
         props.value = 1;
 
-        const { getByText } =  render(Cell, props);
-        const cell = getByText(props.value);
+        const { container } = render(Cell, props);
+        const livingCell = container.querySelector('.living');
+        const deadCell = container.querySelector('.dead');
 
-        expect(cell).toHaveClass('living');
-        expect(cell).toHaveTextContent('1');
+        expect(livingCell).toBeInTheDocument();
+        expect(livingCell).toHaveTextContent(props.value.toString());
+        expect(deadCell).not.toBeInTheDocument();
       });
     });
     describe("WHEN: Given a val argument of -1", () => {
       it("THEN: It displays a dead cell", () => {
         props.value = -1;
 
-        const { getByText } =  render(Cell, props);
-        const cell = getByText(props.value);
+        const { container } = render(Cell, props);
+        const deadCell = container.querySelector('.dead');
+        const livingCell = container.querySelector('.living');
 
-        expect(cell).toHaveClass('dead');
-        expect(cell).toHaveTextContent('-1');
+        expect(deadCell).toBeInTheDocument();
+        expect(deadCell).toHaveTextContent(props.value.toString());
+        expect(livingCell).not.toBeInTheDocument();
       });
     });
   });
   describe("Interaction", () => {
     describe("WHEN: The user clicks the cell,", () => {
-      it("THEN: The click handler is invoked.", () => {
+      let expected;
+      let cell;
+      beforeEach(()=>{
         mockCellClickHandler.mockImplementation(jest.fn());
-
+        expected = (props.value * -1).toString();
         render(Cell, props);
-        const cell = document.querySelector('td');
+        cell = document.querySelector('td');
 
         fireEvent.click(cell);
-
+      });
+      it("THEN: The click handler is invoked.", () => {
         expect(mockCellClickHandler).toHaveBeenCalledTimes(1);
+      });
+      it("AND: The display value is toggled.", () => {
+        expect(cell).toHaveTextContent(expected);
       });
     });
   });
