@@ -1,16 +1,14 @@
-<script lang="ts">
+<script lang='ts'>
 	import { getReactiveCssClass } from './SpeedAdjusterUtils';
 	import { getContext } from 'svelte';
 
 	let value = 20;
 	const { updateSpeed } = getContext('speedContext');
-	const sliderHandler = () => updateSpeed(value);
-
+	const sliderHandler = () => updateSpeed(value)
 	$: reactiveStyling = getReactiveCssClass(value);
 </script>
 
-
-<div class='range-slider__wrapper'>
+<div class='{reactiveStyling} range-slider__wrapper'>
 	<input
 		on:change={sliderHandler}
 		bind:value
