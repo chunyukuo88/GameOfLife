@@ -2,6 +2,7 @@ import OnOffSwitch from "./OnOffSwitch.svelte";
 import { fireEvent, render } from '@testing-library/svelte';
 import "@testing-library/jest-dom";
 import { createGridStore } from '../../../GamePanel/common/stores';
+import { mockedEntireContext } from '../../common/testMocks';
 import { getContext } from 'svelte'; // Shows as gray in IDE but this is being used.
 
 jest.mock('../../../GamePanel/common/stores');
@@ -13,18 +14,9 @@ jest.mock('svelte', ()=>{
   return {
     __esModule: true,
     ...originalModule,
-    // This method is active despite the gray
-    getContext: () => ({
-      gridStore: {
-        subscribe: () => function unsubscribe(){
-          return null;
-        },
-      },
-      updateGrid: jest.fn()
-    }),
+    getContext: () => mockedEntireContext,
   };
 });
-
 
 describe("OnSwitch.svelte", () => {
   describe("Interaction", () => {
@@ -37,10 +29,10 @@ describe("OnSwitch.svelte", () => {
       jest.clearAllMocks();
     });
     describe("WHEN: The user clicks the button once", () => {
-      it("THEN: The stream begins", () => {
+      it("THEN: The stream begins", async () => {
         const spy = jest.spyOn(window, 'setInterval');
 
-        fireEvent.click(button);
+        await fireEvent.click(button);
 
         expect(spy).toBeCalledTimes(1);
       });

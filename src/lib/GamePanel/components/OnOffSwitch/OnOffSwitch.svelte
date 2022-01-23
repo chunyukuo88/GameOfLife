@@ -1,19 +1,20 @@
-<script lang="ts">
-	import { evaluateAllCells } from '../../common/gameOfLifeUtils';
+<script lang='ts'>
 	import { getContext } from 'svelte';
+	import { ticker } from './OnOffSwitchUtils';
 
 	const { gridStore, updateGrid } = getContext('gridContext');
 	const { isTickingStore, stopTicking, startTicking } = getContext('tickingContext');
 	const { speedStore, updateSpeed } = getContext('speedContext');
 
 	let tickerId;
-	const tick = () => evaluateAllCells($gridStore, updateGrid);
 
 	function clickHandler(){
 		($isTickingStore === true) ? stopTicking() : startTicking();
-		if ($isTickingStore) tickerId = setInterval(tick, $speedStore * 2);
+		const interval =  $speedStore * 2;
+		if ($isTickingStore) tickerId = setInterval(() => ticker($gridStore, updateGrid), interval);
 		else clearInterval(tickerId);
 	}
+
 </script>
 
 <button on:click={clickHandler}>
