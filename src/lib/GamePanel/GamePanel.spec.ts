@@ -7,7 +7,8 @@ jest.mock('./common/gameOfLifeUtils', ()=>{
 	return {
 		__esModule: true,
 		...originalModule,
-		updateWithPattern: jest.fn()
+		updateWithPattern: jest.fn(),
+		updateSpeed: jest.fn()
 	};
 });
 
