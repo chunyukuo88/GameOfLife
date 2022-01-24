@@ -4,7 +4,6 @@
 
 	const { gridStore, updateGrid } = getContext('gridContext');
 	export let value: 1 | -1;
-	export let row: number;
 	export let i: number;
 	export let j: number;
 

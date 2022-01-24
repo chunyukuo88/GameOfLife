@@ -2,7 +2,8 @@ export enum patternLabels {
 	BUTTERFLY = 'butterfly',
 	GLIDERS = 'gliders',
 	MAGIC_BOX = 'magic box',
-	REFLECTOR = 'reflector'
+	REFLECTOR = 'reflector',
+	FOR_UNIT_TESTING = 'test'
 }
 
 export const patterns = {
@@ -214,4 +215,5 @@ export const patterns = {
 		[ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, ],
 		[ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, ],
 	],
+	test: [[-1]]
 }

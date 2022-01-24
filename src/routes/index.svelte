@@ -1,2 +1,5 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h1>
+	Howzit
+</h1>
+
+<p>This site is a work in progress. Check back later this spring for more content!</p>

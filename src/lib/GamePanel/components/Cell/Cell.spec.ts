@@ -28,7 +28,6 @@ describe("Cell.svelte", () => {
   const props = {
     i: 34,
     j: 12,
-    row: 3,
     value: -1
   };
   afterEach(()=>{

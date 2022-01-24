@@ -9,7 +9,7 @@
 	{#each $gridStore as row, i}
 		<tr>
 			{#each row as value, j}
-				<Cell {row} {value} {i} {j}/>
+				<Cell {value} {i} {j}/>
 			{/each}
 		</tr>
 	{/each}
