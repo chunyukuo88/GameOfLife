@@ -7,7 +7,13 @@
 </script>
 
 <button on:click={tickHandler}>
-	<h1>
-		Step
-	</h1>
+	<h3>
+		一步
+	</h3>
 </button>
+
+<style>
+	button {
+		width: 12.25rem;
+	}
+</style>

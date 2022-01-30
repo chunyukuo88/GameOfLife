@@ -13,7 +13,6 @@
 	} = getContext('gridContext');
 
 	let tickerId;
-
 	function clickHandler(){
 		($isTickingStore === true) ? stopTicking() : startTicking();
 		const interval =  $speedStore * 2;
@@ -21,27 +20,19 @@
 		else clearInterval(tickerId);
 	}
 
-	$: label = ($isTickingStore === true) ? 'ON' : 'OFF';
+	$: label = ($isTickingStore === true) ? '■': '▶';
 	$: tickingStatus = ($isTickingStore === true) ? 'ticking-on' : 'ticking-off';
 </script>
 
 <button on:click={clickHandler} class='{tickingStatus}'>
-	<h1 >
+	<h3 >
 		{label}
-	</h1>
+	</h3>
 </button>
 
 <style>
 	button {
-		width: 150px;
-	}
-	.ticking-on {
-		background-color: green;
-		color: white;
-	}
-	.ticking-off {
-		background-color: red;
-		color: black;
+		width: 12.25rem;
 	}
 </style>
 

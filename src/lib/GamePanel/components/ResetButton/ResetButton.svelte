@@ -7,7 +7,13 @@
 </script>
 
 <button class='reset-button' on:click={resetHandler}>
-	<h1>
-		Reset
-	</h1>
+	<h3>
+		重置
+	</h3>
 </button>
+
+<style>
+	button {
+		width: 12.25rem;
+	}
+</style>

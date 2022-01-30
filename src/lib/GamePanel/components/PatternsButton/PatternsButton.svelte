@@ -7,7 +7,13 @@
 </script>
 
 <button on:click={()=>updateWithPattern(updateGrid, label)}>
-	<h1>
+	<h3>
 		{label}
-	</h1>
+	</h3>
 </button>
+
+<style>
+	button {
+		width: 12.25rem;
+	}
+</style>

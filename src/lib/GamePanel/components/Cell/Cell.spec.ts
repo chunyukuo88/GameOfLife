@@ -54,11 +54,6 @@ describe("Cell.svelte", () => {
         expect(livingCell).not.toBeInTheDocument();
       });
     });
-    describe("WHEN: The global state is set to include grid lines", () => {
-      it('THEN: Grid lines are displayed', ()=>{
-
-      });
-    });
   });
   describe("Interaction", () => {
     describe("WHEN: The user clicks the cell,", () => {

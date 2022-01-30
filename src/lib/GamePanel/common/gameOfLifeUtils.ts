@@ -14,8 +14,7 @@ export const produceSquareGrid = (sideLength = 20) => {
 	return grid;
 };
 
-//Exported for unit test only.
-export const startingGrid = produceSquareGrid(50);
+export const startingGrid = produceSquareGrid(100);
 
 export const resetGrid = (updateGrid) => updateGrid(startingGrid);
 
