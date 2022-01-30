@@ -6,6 +6,8 @@
 	const resetHandler = () => resetGrid(updateGrid);
 </script>
 
-<button on:click={resetHandler}>
-	<h1>Reset</h1>
+<button class='reset-button' on:click={resetHandler}>
+	<h1>
+		Reset
+	</h1>
 </button>

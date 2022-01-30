@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
 	import { evaluateAllCells } from '../../common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 
@@ -7,5 +7,7 @@
 </script>
 
 <button on:click={tickHandler}>
-	<h1>Step</h1>
+	<h1>
+		Step
+	</h1>
 </button>

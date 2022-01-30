@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang='ts'>
 	import { updateWithPattern } from '../../common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 

@@ -3,6 +3,7 @@
 	import { cellClickHandler } from './CellUtils';
 
 	const { gridStore, updateGrid } = getContext('gridContext');
+	const { gridLinesStore } = getContext('gridLinesContext');
 	export let value: 1 | -1;
 	export let i: number;
 	export let j: number;
@@ -10,28 +11,28 @@
 	const handler = () => cellClickHandler($gridStore, updateGrid, i, j);
 </script>
 
-{#if (value === 1)}
-	<td on:click={handler} class='living' role='button'>
-		{value}
-	</td>
-{:else}
-	<td on:click={handler} class='dead' role='button'>
-		{value}
-	</td>
-{/if}
+<td
+	on:click={handler}
+	class:living={value === 1}
+	class:grid-lines={$gridLinesStore === true}
+	role='button'
+>
+	{value}
+</td>
+
 
 <style>
-	.dead {
-		background: gray;
-		color: gray;
+	.grid-lines {
+		border: 1px solid #000000FF;
 	}
 	.living {
-		background: yellow;
-		color: yellow;
+		background: #FFFF00FF;
+		color: #FFFF00FF;
 	}
 	td {
-		max-height: 0.6rem;
+		background: #808080FF;
+		color: #808080FF;
+		font-size: 0.1rem;
 		user-select: none;
-		max-width: 0.6rem;
 	}
 </style>

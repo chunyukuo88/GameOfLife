@@ -13,14 +13,11 @@ jest.mock('./common/gameOfLifeUtils', ()=>{
 });
 
 describe('GIVEN: The grid renders', ()=>{
-	afterEach(()=>{
+	beforeEach(()=>{
 		render(GamePanel);
-		const resetButton = document.querySelectorAll('button')[1];
-		fireEvent.click(resetButton);
 	});
 	describe('WHEN: The user clicks a cell', ()=>{
 		it('THEN: The cell changes color.', ()=>{
-			render(GamePanel);
 			let cell = document.querySelector('td');
 
 			expect(cell).toHaveTextContent('-1');
@@ -33,7 +30,6 @@ describe('GIVEN: The grid renders', ()=>{
 	});
 	describe('WHEN: The user clicks a cell and then clicks "reset"', ()=>{
 		it('THEN: The cell changes color, then the whole grid is blank.', ()=>{
-			render(GamePanel);
 			let cell = document.querySelector('td');
 			const resetButton = document.querySelectorAll('button')[1];
 
@@ -52,7 +48,6 @@ describe('GIVEN: The grid renders', ()=>{
 	});
 	describe('WHEN: The user clicks a cell and then clicks "step"', ()=>{
 		it('THEN: The cell changes color, then the whole grid is blank.', ()=>{
-			render(GamePanel);
 			let cell = document.querySelector('td');
 			const tickButton = document.querySelectorAll('button')[0];
 
@@ -71,7 +66,6 @@ describe('GIVEN: The grid renders', ()=>{
 	});
 	describe('WHEN: The user clicks a cell and then clicks "on/off"', ()=>{
 		it('THEN: The cell changes color, then the whole grid is blank.', async ()=>{
-			render(GamePanel);
 			let cell = document.querySelector('td');
 			const onOffButton = document.querySelectorAll('button')[2];
 
@@ -89,6 +83,24 @@ describe('GIVEN: The grid renders', ()=>{
 				() => expect(cell).toHaveTextContent('-1'),
 				100
 			)
+		});
+	});
+	describe('WHEN: The user clicks the Grid Lines button twice', ()=>{
+		it('THEN: The grid lines appear and disappear.', async ()=>{
+			const gridLinesButton = document.querySelector('.grid-lines-button');
+			const blackBorder = {
+				border: '1px solid #000000FF',
+			};
+
+			await fireEvent.click(gridLinesButton);
+			let cell = document.querySelector('td');
+
+			expect(cell).toHaveStyle(blackBorder);
+
+			await fireEvent.click(gridLinesButton);
+			cell = document.querySelector('td');
+
+			expect(cell).not.toHaveStyle(blackBorder);
 		});
 	});
 	describe('WHEN: The user clicks the gliders button, ', ()=>{

@@ -1,4 +1,4 @@
-import { createTickingContext, createSpeedContext } from './contexts';
+import { createTickingContext, createSpeedContext, createGridLinesContext } from './contexts';
 
 describe('contexts.ts', ()=>{
 	describe('tickingContext methods', ()=>{
@@ -19,12 +19,27 @@ describe('contexts.ts', ()=>{
 					set: jest.fn(),
 				};
 				const context = createTickingContext(isTickingStore);
+
 				context.startTicking();
+
 				expect(isTickingStore.set).toHaveBeenCalledWith(true);
 			});
 		});
 	});
+	describe('gridLinesContext methods', ()=>{
+		describe('WHEN: the toggleGridLines method is invoked,', ()=>{
+			it('THEN: The gridLinesStore object is set to equal `true`', ()=>{
+				const gridLinesStore = {
+					set: jest.fn(),
+				};
+				const context = createGridLinesContext(gridLinesStore);
 
+				context.toggleGridLines(true);
+
+				expect(gridLinesStore.set).toHaveBeenCalledWith(true);
+			});
+		});
+	});
 	describe('createSpeedContext methods', ()=>{
 		describe('WHEN: The updateSpeed method is invoked,', ()=>{
 			it('THEN: The speedStore is updated with the new speed', ()=>{
