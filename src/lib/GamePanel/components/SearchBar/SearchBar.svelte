@@ -3,10 +3,10 @@
 	import { fromEvent } from 'rxjs';
 
 	let searchBox;
-	let results = ''
+	let results = '';
 	onMount(()=>{
-		fromEvent(searchBox, 'input')
-			.forEach(keypress => updateSearchQuery(keypress));
+		const keyPresses$ = fromEvent(searchBox, 'input');
+		keyPresses$.subscribe(keypress => updateSearchQuery(keypress));
 	});
 
 	const updateSearchQuery = (keypress) => {
@@ -14,11 +14,21 @@
 			? results = results.slice(0, results.length - 1)
 			: results += keypress.data;
 	};
+
 </script>
 
-<input bind:this={searchBox} type='text'/><button>🔎</button>
+<div class="input-container">
+	<input bind:this={searchBox} type='text'/>
+	<button>🔎</button>
+</div>
 <div>Results:</div>
 <p>{results}</p>
-<style>
 
+
+<style>
+	.input-container {
+		align-items: start;
+		display: flex;
+		width: 230px;
+	}
 </style>

@@ -5,6 +5,11 @@ export const createGridContext = (gridStore) => ({
 	updateGrid: (newGrid: Grid) => gridStore.set(newGrid),
 });
 
+export const createGridLinesContext = (gridLinesStore) => ({
+	gridLinesStore,
+	toggleGridLines: (newValue: boolean) => gridLinesStore.set(newValue)
+});
+
 export const createTickingContext = (isTickingStore) => ({
 	isTickingStore,
 	stopTicking: () => isTickingStore.set(false),

@@ -2,7 +2,7 @@ import Cell from "./Cell.svelte";
 import { fireEvent, render } from '@testing-library/svelte';
 import "@testing-library/jest-dom";
 import { cellClickHandler } from './CellUtils';
-import { getContext } from 'svelte'; // This is active despite the gray color.
+import { getContext } from 'svelte'; /** <--- This import is active despite the gray color.*/
 
 jest.mock('svelte', ()=>{
   const originalModule = jest.requireActual('svelte');
@@ -23,7 +23,6 @@ jest.mock('svelte', ()=>{
 jest.mock('./CellUtils');
 const mockCellClickHandler = cellClickHandler as jest.Mock<unknown>;
 
-
 describe("Cell.svelte", () => {
   const props = {
     i: 34,
@@ -40,11 +39,9 @@ describe("Cell.svelte", () => {
 
         const { container } = render(Cell, props);
         const livingCell = container.querySelector('.living');
-        const deadCell = container.querySelector('.dead');
 
         expect(livingCell).toBeInTheDocument();
         expect(livingCell).toHaveTextContent(props.value.toString());
-        expect(deadCell).not.toBeInTheDocument();
       });
     });
     describe("WHEN: Given a val argument of -1", () => {
@@ -52,12 +49,14 @@ describe("Cell.svelte", () => {
         props.value = -1;
 
         const { container } = render(Cell, props);
-        const deadCell = container.querySelector('.dead');
         const livingCell = container.querySelector('.living');
 
-        expect(deadCell).toBeInTheDocument();
-        expect(deadCell).toHaveTextContent(props.value.toString());
         expect(livingCell).not.toBeInTheDocument();
+      });
+    });
+    describe("WHEN: The global state is set to include grid lines", () => {
+      it('THEN: Grid lines are displayed', ()=>{
+
       });
     });
   });

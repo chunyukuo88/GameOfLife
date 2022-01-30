@@ -15,3 +15,8 @@
 	{/each}
 </table>
 
+<style>
+	table {
+		border-spacing: 0;
+	}
+</style>
