@@ -2,8 +2,8 @@
 	import { getContext } from 'svelte';
 	import { cellClickHandler } from './CellUtils';
 
-	const { gridStore, updateGrid } = getContext('gridContext');
-	const { gridLinesStore } = getContext('gridLinesContext');
+	const { gridStore, updateGrid, gridLinesStore } = getContext('gridContext');
+	// const { gridLinesStore } = getContext('gridLinesContext');
 	export let value: 1 | -1;
 	export let i: number;
 	export let j: number;

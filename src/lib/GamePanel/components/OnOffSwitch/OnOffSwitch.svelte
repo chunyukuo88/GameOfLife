@@ -2,9 +2,15 @@
 	import { getContext } from 'svelte';
 	import { ticker } from './OnOffSwitchUtils';
 
-	const { gridStore, updateGrid } = getContext('gridContext');
-	const { isTickingStore, stopTicking, startTicking } = getContext('tickingContext');
-	const { speedStore, updateSpeed } = getContext('speedContext');
+	const {
+		gridStore,
+		updateGrid,
+		isTickingStore,
+		stopTicking,
+		startTicking,
+		speedStore,
+		updateSpeed,
+	} = getContext('gridContext');
 
 	let tickerId;
 

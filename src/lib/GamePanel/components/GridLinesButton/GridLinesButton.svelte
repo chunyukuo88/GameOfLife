@@ -1,7 +1,7 @@
 <script lang='ts'>
 	import { getContext } from 'svelte';
 
-	const { gridLinesStore, toggleGridLines } = getContext('gridLinesContext');
+	const { gridLinesStore, toggleGridLines } = getContext('gridContext');
 	const clickHandler = () => ($gridLinesStore === true)
 		? toggleGridLines(false)
 		: toggleGridLines(true);

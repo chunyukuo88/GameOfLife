@@ -3,7 +3,7 @@
 	import { getContext } from 'svelte';
 
 	let value = 20;
-	const { updateSpeed } = getContext('speedContext');
+	const { updateSpeed } = getContext('gridContext');
 	const sliderHandler = () => updateSpeed(value)
 	$: reactiveStyling = getReactiveCssClass(value);
 </script>

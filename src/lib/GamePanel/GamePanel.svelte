@@ -1,16 +1,6 @@
 <script lang='ts'>
-	import {
-		createGridStore,
-		createGridLinesStore,
-		createSpeedStore,
-		createIsTickingStore,
-	} from './common/stores';
-	import {
-		createGridContext,
-		createGridLinesContext,
-		createSpeedContext,
-		createTickingContext,
-	} from './common/contexts';
+	import { createStores	} from './common/stores';
+	import { createGridContext } from './common/contexts';
 	import { setContext } from 'svelte';
 	import { patternLabels } from './common/patterns';
 	import Grid from './components/Grid/Grid.svelte';
@@ -22,14 +12,8 @@
 	import PatternsButton from './components/PatternsButton/PatternsButton.svelte';
 	const { BUTTERFLY, GLIDERS, REFLECTOR, MAGIC_BOX } = patternLabels;
 
-	const gridContext = createGridContext(createGridStore());
-	const gridLinesContext = createGridLinesContext(createGridLinesStore());
-	const speedContext = createSpeedContext(createSpeedStore());
-	const tickingContext = createTickingContext(createIsTickingStore());
+	const gridContext = createGridContext(createStores());
 	setContext('gridContext', gridContext);
-	setContext('gridLinesContext', gridLinesContext);
-	setContext('speedContext', speedContext);
-	setContext('tickingContext', tickingContext);
 </script>
 
 <Grid />
