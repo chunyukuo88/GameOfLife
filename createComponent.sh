@@ -16,7 +16,7 @@ if [ "$create" == "y" ]
     cat ../__Template__/TemplateUtils.spec.ts > "$componentName"Utils.spec.ts
     for file in *;
     do
-       sed -i "" "s/__Template__/$componentName/g" $file
+       sed -i "" "s/__Template__/$componentName/g" "$file"
     done
   else exit 1
 fi

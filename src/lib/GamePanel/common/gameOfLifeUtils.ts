@@ -2,21 +2,34 @@ import { patterns } from './patterns';
 
 type Grid = number[][];
 
-export const produceSquareGrid = (sideLength = 20) => {
-	const row = [];
-	for (let i = 0; i < sideLength; i++) {
-		row.push(-1);
-	}
+export const produceSquareGrid = (sideLength = 20, isRandom = false) => {
 	const grid = [];
 	for (let i = 0; i < sideLength; i++) {
+		const row = getRowValues(sideLength, isRandom);
 		grid.push(row);
 	}
 	return grid;
 };
 
+const getRowValues = (sideLength, isRandom) => {
+	const row = [];
+	for (let i = 0; i < sideLength; i++) {
+		const cell = isRandom ? getRandomValue() : -1;
+		row.push(cell);
+	}
+	return row;
+};
+
+const getRandomValue = () => {
+	const roundedValue = Math.round(Math.random());
+	return (roundedValue === 0) ? 1 : -1;
+};
+
 export const startingGrid = produceSquareGrid(100);
 
-export const resetGrid = (updateGrid) => updateGrid(startingGrid);
+export const randomGrid = produceSquareGrid(100, true);
+
+export const resetGrid = (updateGrid, grid = startingGrid) => updateGrid(grid);
 
 export const updateWithPattern = (updateGrid, label) => updateGrid(patterns[label]);
 
