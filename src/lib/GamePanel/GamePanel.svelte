@@ -10,6 +10,7 @@
 	import OnSwitch from './components/OnOffSwitch/OnOffSwitch.svelte';
 	import SpeedAdjuster from './components/SpeedAdjuster/SpeedAdjuster.svelte';
 	import PatternsButton from './components/PatternsButton/PatternsButton.svelte';
+	import RandomizeButton from './components/RandomizeButton/RandomizeButton.svelte';
 	const { BUTTERFLY, GLIDERS, REFLECTOR, MAGIC_BOX } = patternLabels;
 
 	const gridContext = createGridContext(createStores());
@@ -19,6 +20,7 @@
 <Grid />
 <StepButton />
 <ResetButton />
+<RandomizeButton />
 <GridLinesButton />
 <OnSwitch />
 <SpeedAdjuster/>

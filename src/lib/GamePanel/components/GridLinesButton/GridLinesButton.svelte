@@ -15,6 +15,7 @@
 
 <style>
 	button {
-		width: 12.25rem;
+		font-size: 0.8rem;
+		width: 4rem;
 	}
 </style>

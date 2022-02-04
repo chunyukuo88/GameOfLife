@@ -103,19 +103,4 @@ describe('GIVEN: The grid renders', ()=>{
 			expect(cell).not.toHaveStyle(blackBorder);
 		});
 	});
-	describe('WHEN: The user clicks the gliders button, ', ()=>{
-		it('THEN: Gliders are rendered.', ()=>{
-			jest.clearAllMocks();
-			const mockUpdateGrid = expect.any(Function);
-			const label = 'gliders';
-			render(GamePanel);
-
-			const glidersButton = screen.getAllByText(label)[0];
-
-			expect(glidersButton).toBeInTheDocument();
-			fireEvent.click(glidersButton);
-
-			expect(updateWithPattern).toHaveBeenCalledWith(mockUpdateGrid, label);
-		});
-	});
 });

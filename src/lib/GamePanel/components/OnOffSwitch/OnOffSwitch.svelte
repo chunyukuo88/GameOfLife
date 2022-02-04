@@ -32,7 +32,8 @@
 
 <style>
 	button {
-		width: 12.25rem;
+		font-size: 0.85rem;
+		width: 4rem;
 	}
 </style>
 
