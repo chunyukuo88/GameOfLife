@@ -8,14 +8,12 @@
 </script>
 
 <button class='grid-lines-button' on:click={clickHandler}>
-	<h3>
-		格子
-	</h3>
+	格子
 </button>
 
 <style>
 	button {
-		/*font-size: 0.8rem;*/
-      width: 100%;
+		font-size: 3em;
+		width: 100%;
 	}
 </style>

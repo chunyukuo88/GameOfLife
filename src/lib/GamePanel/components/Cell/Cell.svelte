@@ -31,7 +31,7 @@
 	td {
 		background: #808080FF;
 		color: #808080FF;
-		font-size: 0.2rem;
+		font-size: 0.4rem;
 		user-select: none;
 	}
 </style>

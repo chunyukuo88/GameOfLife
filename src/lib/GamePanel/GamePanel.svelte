@@ -4,13 +4,15 @@
 	import { setContext } from 'svelte';
 	import { patternLabels } from './common/patterns';
 	import Grid from './components/Grid/Grid.svelte';
-	import GridLinesButton from './components/GridLinesButton/GridLinesButton.svelte';
-	import ResetButton from './components/ResetButton/ResetButton.svelte';
-	import StepButton from './components/StepButton/StepButton.svelte';
-	import OnOffSwitch from './components/OnOffSwitch/OnOffSwitch.svelte';
-	import SpeedAdjuster from './components/SpeedAdjuster/SpeedAdjuster.svelte';
+	import GridLinesButton from './components/Controls/GridLinesButton/GridLinesButton.svelte';
+	import ResetButton from './components/Controls/ResetButton/ResetButton.svelte';
+	import StepButton from './components/Controls/StepButton/StepButton.svelte';
+	import OnOffSwitch from './components/Controls/OnOffSwitch/OnOffSwitch.svelte';
+	import SpeedAdjuster from './components/Controls/SpeedAdjuster/SpeedAdjuster.svelte';
 	import PatternsButton from './components/PatternsButton/PatternsButton.svelte';
-	import RandomizeButton from './components/RandomizeButton/RandomizeButton.svelte';
+	import RandomizeButton from './components/Controls/RandomizeButton/RandomizeButton.svelte';
+	import NewPatternSlot from './components/NewPatternSlot/NewPatternSlot.svelte';
+	import SavePatternButton from './components/SavePatternButton/SavePatternButton.svelte';
 	const { BUTTERFLY, GLIDERS, REFLECTOR, MAGIC_BOX } = patternLabels;
 
 	const gridContext = createGridContext(createStores());
@@ -18,6 +20,12 @@
 </script>
 
 <section class='gol-page-container'>
+	<div class='vertical-buttons'>
+		<SavePatternButton/>
+		<NewPatternSlot/>
+		<NewPatternSlot/>
+		<NewPatternSlot/>
+	</div>
 	<div class='grid-and-controls'>
 		<div class='grid'>
 			<Grid />
@@ -31,7 +39,7 @@
 		</div>
 			<SpeedAdjuster/>
 	</div>
-	<div class='patterns-container'>
+	<div class='vertical-buttons'>
 		<PatternsButton label={BUTTERFLY}/>
 		<PatternsButton label={GLIDERS}/>
 		<PatternsButton label={MAGIC_BOX}/>
@@ -41,6 +49,7 @@
 
 <style>
 	.grid-and-controls {
+		background-color: black;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -54,7 +63,7 @@
 		display: flex;
 		justify-content: center;
   }
-	.patterns-container {
+	.vertical-buttons {
 		display: flex;
 		flex-direction: column;
 	}

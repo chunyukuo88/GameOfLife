@@ -9,21 +9,27 @@
 </script>
 
 <div class='{reactiveStyling} range-slider__wrapper'>
+	<span>快</span>
 	<input
 		on:input={sliderHandler}
 		bind:value
 		type="range"
 	>
+	<span>慢</span>
 </div>
 
 
 <style>
 	.range-slider__wrapper {
-		width: 8rem;
+		align-items: center;
+		display: flex;
+		justify-content: center;
+		height: 100%;
+		width: 100%;
 	}
 
-	.range-slider__wrapper {
-		width: 100%;
+	span {
+		font-size: 3em;
 	}
 
 	.below10 {

@@ -1,5 +1,5 @@
 import { ticker } from './OnOffSwitchUtils';
-import { evaluateAllCells } from '../../common/gameOfLifeUtils';
+import { evaluateAllCells } from '../../../common/gameOfLifeUtils';
 
 jest.mock('../../common/gameOfLifeUtils');
 const mockedEvaluator = evaluateAllCells as jest.Mock<unknown>;

@@ -4,16 +4,16 @@
 
 	const { updateGrid } = getContext('gridContext');
 	export let label: string;
+	const clickHandler = () => updateWithPattern(updateGrid, label);
 </script>
 
-<button on:click={()=>updateWithPattern(updateGrid, label)}>
-	<h3>
-		{label}
-	</h3>
+<button on:click={clickHandler}>
+	{label}
 </button>
 
 <style>
 	button {
+			font-size: 3em;
 		width: 6rem;
 		height: 100%;
 	}

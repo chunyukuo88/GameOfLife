@@ -1,5 +1,5 @@
 <script lang='ts'>
-	import { evaluateAllCells } from '../../common/gameOfLifeUtils';
+	import { evaluateAllCells } from '../../../common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 
 	const { gridStore, updateGrid } = getContext('gridContext');
@@ -7,13 +7,12 @@
 </script>
 
 <button on:click={tickHandler}>
-	<h3>
-		一步
-	</h3>
+	一步
 </button>
 
 <style>
 	button {
-      width: 100%;
+		width: 100%;
+		font-size: 3em;
 	}
 </style>

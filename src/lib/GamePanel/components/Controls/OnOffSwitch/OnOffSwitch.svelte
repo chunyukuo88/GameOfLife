@@ -25,14 +25,12 @@
 </script>
 
 <button on:click={clickHandler} class='{tickingStatus}'>
-	<h3 >
-		{label}
-	</h3>
+	{label}
 </button>
 
 <style>
 	button {
-		font-size: 0.85rem;
+      font-size: 3em;
 		width: 100%;
 	}
 </style>
