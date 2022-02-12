@@ -17,6 +17,6 @@ export const createGridContext = (stores) => {
 		startTicking: () => isTickingStore.set(true),
 		speedStore,
 		updateSpeed: (newSpeed: number) => speedStore.set(newSpeed),
-	}
+	};
 };
 

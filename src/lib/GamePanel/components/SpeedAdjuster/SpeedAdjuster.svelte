@@ -18,8 +18,8 @@
 
 
 <style>
-	div {
-		width: 100%;
+	.range-slider__wrapper {
+		width: 8rem;
 	}
 
 	.range-slider__wrapper {

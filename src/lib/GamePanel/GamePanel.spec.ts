@@ -1,6 +1,5 @@
 import GamePanel from './GamePanel.svelte';
 import { render, fireEvent, screen } from '@testing-library/svelte';
-import { updateWithPattern } from './common/gameOfLifeUtils';
 
 jest.mock('./common/gameOfLifeUtils', ()=>{
 	const originalModule = jest.requireActual('./common/gameOfLifeUtils');
