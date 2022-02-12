@@ -1,16 +1,6 @@
 import GamePanel from './GamePanel.svelte';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 
-jest.mock('./common/gameOfLifeUtils', ()=>{
-	const originalModule = jest.requireActual('./common/gameOfLifeUtils');
-	return {
-		__esModule: true,
-		...originalModule,
-		updateWithPattern: jest.fn(),
-		updateSpeed: jest.fn()
-	};
-});
-
 describe('GIVEN: The grid renders', ()=>{
 	beforeEach(()=>{
 		render(GamePanel);

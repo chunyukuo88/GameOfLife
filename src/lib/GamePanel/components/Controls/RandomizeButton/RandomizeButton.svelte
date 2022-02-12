@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resetGrid, randomGrid } from '../../common/gameOfLifeUtils';
+	import { resetGrid, randomGrid } from '../../../common/gameOfLifeUtils';
 	import { getContext } from 'svelte';
 
 	const { updateGrid } = getContext('gridContext');
@@ -7,13 +7,12 @@
 </script>
 
 <button on:click={resetHandler}>
-	<h3>
-		隨機
-	</h3>
+	隨機
 </button>
 
 <style>
   button {
-    width: 4rem;
+		font-size: 3em;
+		width: 100%;
   }
 </style>
