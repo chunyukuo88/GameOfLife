@@ -33,7 +33,7 @@
 <style>
 	button {
 		font-size: 0.85rem;
-		width: 4rem;
+		width: 100%;
 	}
 </style>
 

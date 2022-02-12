@@ -15,7 +15,7 @@
 
 <style>
 	button {
-		font-size: 0.8rem;
-		width: 4rem;
+		/*font-size: 0.8rem;*/
+      width: 100%;
 	}
 </style>

@@ -10,7 +10,7 @@
 
 <div class='{reactiveStyling} range-slider__wrapper'>
 	<input
-		on:change={sliderHandler}
+		on:input={sliderHandler}
 		bind:value
 		type="range"
 	>
@@ -23,7 +23,7 @@
 	}
 
 	.range-slider__wrapper {
-		width: 27.8rem;
+		width: 100%;
 	}
 
 	.below10 {

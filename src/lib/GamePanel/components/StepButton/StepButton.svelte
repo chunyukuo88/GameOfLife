@@ -14,6 +14,6 @@
 
 <style>
 	button {
-		width: 4rem;
+      width: 100%;
 	}
 </style>
